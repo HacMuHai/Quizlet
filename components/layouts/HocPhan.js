@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable, 
 import { useState, useRef } from 'react';
 
 
-
-
 const data = [
     {
         id: 1,
