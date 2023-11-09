@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Switch, Pressable, ScrollView } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 
 
@@ -51,12 +52,9 @@ export default function CaiDat() {
                             placeholderTextColor={'#BEC9CD'}
                         />
                     </View>
-                    <View style={{ width: '13%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
                 <View style={{ width: '92%', height: 60, marginLeft: '8%', borderBottomWidth: 1, borderColor: '#596281', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ width: '87%' }}>
@@ -71,12 +69,9 @@ export default function CaiDat() {
                             placeholderTextColor={'#BEC9CD'}
                         />
                     </View>
-                    <View style={{ width: '13%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
                 <View style={{ width: '92%', height: 60, marginLeft: '8%', borderBottomWidth: 1, borderColor: '#596281', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ width: '87%' }}>
@@ -86,12 +81,9 @@ export default function CaiDat() {
                             Thêm mật khẩu
                         </Text>
                     </View>
-                    <View style={{ width: '13%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
             </View>
             <View style={{ width: '100%', height: 103, marginTop: 30, backgroundColor: '#2F3857', justifyContent: 'center' }}>
@@ -134,12 +126,9 @@ export default function CaiDat() {
                             Thông báo đầy
                         </Text>
                     </View>
-                    <View style={{ width: '15%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
                 <View style={{ flexDirection: 'row', marginTop: 15, width: '92%', marginLeft: '8%', justifyContent: 'center' }}>
                     <View style={{ width: '80%', justifyContent: 'center' }}>
@@ -171,12 +160,9 @@ export default function CaiDat() {
                             Trung tâm hổ trợ
                         </Text>
                     </View>
-                    <View style={{ width: '15%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
                 <View style={{ width: '92%', height: 60, marginLeft: '8%', borderBottomWidth: 1, borderColor: '#596281', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ width: '85%', justifyContent: 'center', marginTop: 10, marginLeft: 10 }}>
@@ -186,12 +172,9 @@ export default function CaiDat() {
                             Xóa tài khoản
                         </Text>
                     </View>
-                    <View style={{ width: '15%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
             </View>
             <View style={{ width: '100%', height: 60, marginTop: 30, backgroundColor: '#2F3857' }}>
@@ -203,12 +186,9 @@ export default function CaiDat() {
                             Đăng xuất
                         </Text>
                     </View>
-                    <View style={{ width: '15%', marginLeft: 10 }}>
-                        <Image
-                            source={require('../imgs/right-arrow.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    </View>
+                    <Pressable style={{ width: '13%', marginLeft: 0 }}>
+                        <Entypo name="chevron-right" size={42} color="white" />
+                    </Pressable>
                 </View>
             </View>
         </ScrollView>
