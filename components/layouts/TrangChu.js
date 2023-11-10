@@ -11,7 +11,7 @@ export default function App() {
     return (
         <View style={[styles.container, { gap: 30 }]}>
             {/* view 1: Header */}
-            <View style={{ height: 130}}>
+            <View style={{ height: 130 }}>
                 <View style={{ flex: 4, backgroundColor: '#2F3857' }}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFF' }}>Quizlet</Text>
@@ -28,24 +28,24 @@ export default function App() {
                         </View>
                     </View>
 
-                    <View style={{flex: 1, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#D9D9D9', borderRadius: 25, marginLeft: 15, marginRight: 15 }}>
+                    <View style={{ flex: 1, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#D9D9D9', borderRadius: 25, paddingLeft: 15, paddingRight: 15, marginLeft: 15, marginRight: 15 }}>
                         <Image
-                            style={{ height: 28, width: 24, resizeMode: 'contain', tintColor: '#555E7A' }}
+                            style={{ flex: 1, height: 24, width: 24, resizeMode: 'contain', tintColor: '#555E7A' }}
                             source={require('../imgs/search.png')}
                         />
                         <TextInput
                             value={search}
                             onChangeText={setSearch}
                             placeholder='Học phần, sách giáo khoa, câu hỏi'
-                            style={{ width: 286, height: 30, fontSize: 16, fontWeight: 400 }}
+                            style={{ flex: 10, height: 30, fontSize: 16, fontWeight: 400 }}
                         />
                         <Image
-                            style={{ height: 28, width: 24, resizeMode: 'contain' }}
+                            style={{ flex: 1, height: 24, width: 24, resizeMode: 'contain' }}
                             source={require('../imgs/camera.png')}
                         />
                     </View>
                 </View>
-                <View style={{flex: 1, backgroundColor: '#2F3857', borderBottomLeftRadius: '100%', borderBottomRightRadius: '100%', marginTop: -1,  }} />
+                <View style={{ flex: 1, backgroundColor: '#2F3857', borderBottomLeftRadius: '100%', borderBottomRightRadius: '100%', marginTop: -1, }} />
             </View>
 
             {/* View 2: Các học phần */}
@@ -59,14 +59,17 @@ export default function App() {
                 </View>
                 <View style={{ marginLeft: 20 }}>
                     <FlatList
-                        data={[{}, {}]}
+                        ref={null}
+                        data={[{}, {}, {}, {}]}
                         horizontal={true}
-                        renderItem={({ item }) => {
+                        pagingEnabled={true}
+                        renderItem={({ item, index }) => {
+
                             return (
                                 <TouchableOpacity
-                                    style={{ height: 140, width: 345, borderWidth: 5, borderRadius: 25, borderColor: '#555E7A', marginRight: 20 }}
+                                    style={{ height: 140, width: 325, borderWidth: 5, borderRadius: 25, borderColor: '#555E7A', marginRight: 20 }}
                                 >
-
+                                    <Text style={{color:'white'}}></Text>
                                 </TouchableOpacity>
                             )
                         }}
