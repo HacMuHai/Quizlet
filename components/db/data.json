@@ -1,0 +1,73 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
+        }
+      ],
+      "folderID": 101,
+      "userID": 201,
+      "title": "Học phần 1",
+      "desc": "Mô tả học phần 1"
+    },
+    {
+      "id": 2,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation AA"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation VV"
+        }
+      ],
+      "folderID": 102,
+      "userID": 202,
+      "title": "Học phần 2",
+      "desc": "Mô tả học phần 2"
+    },
+    {
+      "id": 3,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation AAA"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation VVV"
+        }
+      ],
+      "folderID": 103,
+      "userID": 203,
+      "title": "Học phần 3",
+      "desc": "Mô tả học phần 3"
+    }
+  ],
+  "users": [
+    {
+      "id": 201,
+      "name": "Nguyen Van A",
+      "email": "vana@example.com",
+      "password": "hashed_password",
+      "dob": "1990-01-01",
+      "isGv": false
+    },
+    {
+      "id": 202,
+      "name": "Nguyen Van B",
+      "email": "vanb@example.com",
+      "password": "hashed_password",
+      "dob": "1995-05-05",
+      "isGv": true
+    }
+  ]
+}
