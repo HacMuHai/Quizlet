@@ -1,4 +1,40 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "name": "Nguyen Van A",
+      "email": "vana@example.com",
+      "password": "hashed_password",
+      "dob": "1990-01-01",
+      "isGv": false,
+      "folders": [1]
+    },
+    {
+      "id": 2,
+      "name": "Nguyen Van B",
+      "email": "vanb@example.com",
+      "password": "hashed_password",
+      "dob": "1995-05-05",
+      "isGv": true,
+      "folders": [2]
+    }
+  ],
+  "folders": [
+    {
+      "id": 1,
+      "name": "Folder X",
+      "desc": "Description of Folder X",
+      "userID": 1,
+      "courses": [1]
+    },
+    {
+      "id": 2,
+      "name": "Folder Y",
+      "desc": "Description of Folder Y",
+      "userID": 2,
+      "courses": [2]
+    }
+  ],
   "courses": [
     {
       "id": 1,
@@ -10,12 +46,22 @@
         {
           "language": "vietnamese",
           "translation": "Translation V"
+        },
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
         }
       ],
-      "folderID": 101,
-      "userID": 201,
+      "folderID": 1,
+      "userID": 1,
+      "classID": 1,
       "title": "Học phần 1",
-      "desc": "Mô tả học phần 1"
+      "desc": "Mô tả học phần 1",
+      "lastOpened": "2023-11-11"
     },
     {
       "id": 2,
@@ -27,47 +73,34 @@
         {
           "language": "vietnamese",
           "translation": "Translation VV"
-        }
-      ],
-      "folderID": 102,
-      "userID": 202,
-      "title": "Học phần 2",
-      "desc": "Mô tả học phần 2"
-    },
-    {
-      "id": 3,
-      "vocabularies": [
-        {
-          "language": "english",
-          "translation": "Translation AAA"
         },
         {
           "language": "vietnamese",
-          "translation": "Translation VVV"
+          "translation": "Translation VV"
         }
       ],
-      "folderID": 103,
-      "userID": 203,
-      "title": "Học phần 3",
-      "desc": "Mô tả học phần 3"
+      "folderID": 2,
+      "userID": 2,
+      "classID": 2,
+      "title": "Học phần 2",
+      "desc": "Mô tả học phần 2",
+      "lastOpened": "2023-11-10"
     }
   ],
-  "users": [
+  "classes": [
     {
-      "id": 201,
-      "name": "Nguyen Van A",
-      "email": "vana@example.com",
-      "password": "hashed_password",
-      "dob": "1990-01-01",
-      "isGv": false
+      "id": 1,
+      "name": "Class A",
+      "desc": "Description of Class A",
+      "userID": 1,
+      "members": [1]
     },
     {
-      "id": 202,
-      "name": "Nguyen Van B",
-      "email": "vanb@example.com",
-      "password": "hashed_password",
-      "dob": "1995-05-05",
-      "isGv": true
+      "id": 2,
+      "name": "Class B",
+      "desc": "Description of Class B",
+      "userID": 2,
+      "members": [2]
     }
   ]
 }
