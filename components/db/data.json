@@ -6,8 +6,7 @@
       "email": "vana@example.com",
       "password": "hashed_password",
       "dob": "1990-01-01",
-      "isGv": false,
-      "folders": [1]
+      "isGv": false
     },
     {
       "id": 2,
@@ -15,8 +14,7 @@
       "email": "vanb@example.com",
       "password": "hashed_password",
       "dob": "1995-05-05",
-      "isGv": true,
-      "folders": [2]
+      "isGv": true
     }
   ],
   "folders": [
@@ -24,15 +22,36 @@
       "id": 1,
       "name": "Folder X",
       "desc": "Description of Folder X",
-      "userID": 1,
-      "courses": [1]
+      "userID": 1
     },
     {
       "id": 2,
       "name": "Folder Y",
       "desc": "Description of Folder Y",
+      "userID": 2
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "name": "Class A",
+      "desc": "Description of Class A",
+      "userID": 1,
+      "members": [2]
+    },
+    {
+      "id": 2,
+      "name": "Class B",
+      "desc": "Description of Class B",
       "userID": 2,
-      "courses": [2]
+      "members": [1]
+    },
+    {
+      "id": 3,
+      "name": "Class C",
+      "desc": "Description of Class C",
+      "userID": 2,
+      "members": []
     }
   ],
   "courses": [
@@ -61,7 +80,7 @@
       "classID": 1,
       "title": "Học phần 1",
       "desc": "Mô tả học phần 1",
-      "lastOpened": "2023-11-11"
+      "lastOpened": "2023-11-11T08:50:00Z"
     },
     {
       "id": 2,
@@ -84,23 +103,34 @@
       "classID": 2,
       "title": "Học phần 2",
       "desc": "Mô tả học phần 2",
-      "lastOpened": "2023-11-10"
-    }
-  ],
-  "classes": [
-    {
-      "id": 1,
-      "name": "Class A",
-      "desc": "Description of Class A",
-      "userID": 1,
-      "members": [1]
+      "lastOpened": "2023-11-10T00:00:00Z"
     },
     {
-      "id": 2,
-      "name": "Class B",
-      "desc": "Description of Class B",
+      "id": 3,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
+        },
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
+        }
+      ],
+      "folderID": 1,
       "userID": 2,
-      "members": [2]
+      "classID": 1,
+      "title": "Học phần 3",
+      "desc": "Mô tả học phần 3",
+      "lastOpened": "2023-11-11T01:50:00Z"
     }
-  ]
+  ]  
 }
