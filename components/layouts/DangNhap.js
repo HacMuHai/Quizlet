@@ -6,7 +6,7 @@ export default function DangNhap() {
             <Text style={{ width: 228, height: 49, marginTop: 15, marginLeft: 20, color: '#FFFFFF', fontFamily: null, fontSize: 18, fontWeight: 400 }}>
                 Đăng nhập nhanh bằng
             </Text>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/facebook.png')}
@@ -20,7 +20,7 @@ export default function DangNhap() {
                     Tiếp tục với Facebook
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 20, borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 20, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/google.png')}
@@ -34,7 +34,7 @@ export default function DangNhap() {
                     Tiếp tục với Google
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 20, borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 20, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/apple.png')}
@@ -54,7 +54,7 @@ export default function DangNhap() {
                 hoặc đăng nhập bằng email hoặc tên người dùng của bạn
             </Text>
             <TextInput
-                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 20, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
+                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 20, borderBottomWidth: 1, borderColor: '#F0F0EF', color:'white', fontSize: 24 }}
                 placeholder='Nhập tên người dùng của bạn'
                 placeholderTextColor={'#F0F0EF'}
             />
@@ -64,7 +64,7 @@ export default function DangNhap() {
                 Email hoặc tên người dùng
             </Text>
             <TextInput
-                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 20, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
+                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 20, borderBottomWidth: 1, borderColor: '#F0F0EF', color:'white', fontSize: 24 }}
                 placeholder='Nhập mật khẩu của bạn'
                 placeholderTextColor={'#F0F0EF'}
             />
@@ -151,7 +151,7 @@ export default function DangNhap() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#545D7B',
+        backgroundColor: '#2F3856',
         // alignItems: 'center',
     },
 });
