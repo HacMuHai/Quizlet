@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Pressable } from 'react-native';
 import DatetimePicker from '@react-native-community/datetimepicker'
 import { CheckBox } from 'react-native-elements';
+import { Octicons } from '@expo/vector-icons';
 
 
 
@@ -39,7 +40,7 @@ export default function DangKy() {
             <Text style={{ width: 228, height: 49, marginTop: 15, marginLeft: 20, color: '#FFFFFF', fontFamily: null, fontSize: 18, fontWeight: 400 }}>
                 Đăng kí nhanh bằng
             </Text>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/facebook.png')}
@@ -53,7 +54,7 @@ export default function DangKy() {
                     Tiếp tục với Facebook
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/google.png')}
@@ -67,7 +68,7 @@ export default function DangKy() {
                     Tiếp tục với Google
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/apple.png')}
@@ -90,7 +91,7 @@ export default function DangKy() {
                 style={{ width: '90%', height: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
             >
                 <TextInput
-                    style={{ width: '90%', height: '100%', marginTop: 0 }}
+                    style={{ width: '90%', height: '100%', marginTop: 0, fontSize: 24, color:'white' }}
                     placeholder='Chọn ngày sinh của bạn'
                     placeholderTextColor={'#F0F0EF'}
                     value={dateOfBirth}
@@ -99,10 +100,7 @@ export default function DangKy() {
                     style={{ width: '10%', height: '100%', marginBottom: 15, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}
                     onPress={handleIconPress}
                 >
-                    <Image
-                        source={require('../imgs/info.png')}
-                        style={{ width: 30, height: 30 }}
-                    />
+                    <Octicons name="info" size={30} color="white" />
                 </Pressable>
             </View>
 
@@ -120,7 +118,7 @@ export default function DangKy() {
                 />
             )}
             <TextInput
-                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
+                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
                 placeholder='example@email.com'
                 placeholderTextColor={'#F0F0EF'}
             />
@@ -130,7 +128,7 @@ export default function DangKy() {
                 Email
             </Text>
             <TextInput
-                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
+                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
                 placeholder='Tạo mật khẩu của bạn'
                 placeholderTextColor={'#F0F0EF'}
             />
@@ -152,7 +150,7 @@ export default function DangKy() {
                     iconType="material-community"
                     checkedIcon="checkbox-outline"
                     uncheckedIcon={'checkbox-blank-outline'}
-                    containerStyle={{ backgroundColor: '#545D7B', borderWidth: 0 }}
+                    containerStyle={{ backgroundColor: '#2F3856', borderWidth: 0 }}
                     titleProps={{ style: { color: '#FFFFFF', fontSize: 20, fontWeight: 700, marginLeft: 10 } }}
                     checkedColor='#FFFFFF'
                     uncheckedColor='#FFFFFF'
@@ -164,7 +162,7 @@ export default function DangKy() {
                     iconType="material-community"
                     checkedIcon="checkbox-outline"
                     uncheckedIcon={'checkbox-blank-outline'}
-                    containerStyle={{ backgroundColor: '#545D7B', borderWidth: 0 }}
+                    containerStyle={{ backgroundColor: '#2F3856', borderWidth: 0 }}
                     titleProps={{ style: { color: '#FFFFFF', fontSize: 20, fontWeight: 700, marginLeft: 10 } }}
                     checkedColor='#FFFFFF'
                     uncheckedColor='#FFFFFF'
@@ -215,7 +213,7 @@ export default function DangKy() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#545D7B',
+        backgroundColor: '#2F3856',
         // alignItems: 'center',
     },
 });
