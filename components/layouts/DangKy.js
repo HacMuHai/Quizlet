@@ -1,46 +1,98 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Pressable } from 'react-native';
-import DatetimePicker from '@react-native-community/datetimepicker'
 import { CheckBox } from 'react-native-elements';
 import { Octicons } from '@expo/vector-icons';
+import FlashMessage, { showMessage } from "react-native-flash-message";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
+
+// format Date để thêm vào api
+const formatDate = (date) => {
+    return date ? format(date, 'dd-MM-yyyy') : ''; // Định dạng ngày tháng
+};
+
+export default function DangKy({ navigation, route }) {
+
+    // Lay api
+    const BASE_URL = 'https://pwqz9y-8080.csb.app/users'
+
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isGV, setIsGV] = useState(true);
 
 
+    // tao ra 1 user moi de chuyen ve dang nhap
+    const newUser = {
+        dob: formatDate(selectedDate),
+        email: email,
+        password: password,
+        isGV: isGV
+    }
+    const postUser = async () => {
 
-export default function DangKy() {
-    // handle select date of birth
-    const [showDatePicker, setShowDatePicker] = useState(false); // Trạng thái để kiểm soát việc hiển thị DateTimePicker
-    const [selectedDate, setSelectedDate] = useState(new Date());  // Trạng thái để lưu ngày được chọn
-    const [dateOfBirth, setDateOfBirth] = useState(''); // Trạng thái để hiển thị ngày sinh trong TextInput
-
-    const handleIconPress = () => {
-        // Xử lý khi người dùng nhấn vào biểu tượng thông tin
-        setShowDatePicker(true); // Hiển thị DateTimePicker
-    };
-
-    const handleDateChange = (event, selected) => {
-        if (selected) {
-            setShowDatePicker(false); // Ẩn DateTimePicker sau khi chọn
-            setSelectedDate(selected);
-            const formattedDate = selected.toLocaleDateString(); // Định dạng ngày thành chuỗi
-            setDateOfBirth(formattedDate); // Cập nhật giá trị ngày sinh vào TextInput
+        try {
+            await fetch(BASE_URL, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    dob: formatDate(selectedDate),
+                    email: email,
+                    password: password,
+                    isGV: isGV
+                }),
+            });
+            navigation.navigate('DangNhap', { newUser: newUser });
+        } catch (error) {
+            showMessage({
+                message: error.message || 'Something went wrong',
+                type: 'info',
+                duration: 1000
+            });
         }
+
     };
+    // xu li dang ki
+    const handleSignUp = async () => {
+        await postUser();
+    }
+
+    // sự kiện chọn ngày của datepicker
+    const handleChange = (date) => {
+        setSelectedDate(date);
+    };
+
+
 
     // handle checkbox
-    const [checked, setChecked] = React.useState(true);
+
     const toggleCheckbox = (value) => {
-        if (value !== checked) {
-            setChecked(value);
+        if (value !== isGV) {
+            setIsGV(value);
         }
     }
 
+    // custom datepicker
+    const CustomInput = ({ value, onClick }) => (
+        <TextInput
+            style={{ width: 300, height: 30, borderColor: '#F0F0EF', color: 'white', fontSize: 24 }}
+            placeholder="Chọn ngày sinh"
+            value={value}
+            onClick={onClick}
+        />
+    );
 
     return (
         <ScrollView style={styles.container}>
+            <FlashMessage position="top" />
             <Text style={{ width: 228, height: 49, marginTop: 15, marginLeft: 20, color: '#FFFFFF', fontFamily: null, fontSize: 18, fontWeight: 400 }}>
                 Đăng kí nhanh bằng
             </Text>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', borderWidth: 1, borderColor: 'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/facebook.png')}
@@ -54,7 +106,7 @@ export default function DangKy() {
                     Tiếp tục với Facebook
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor: 'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/google.png')}
@@ -68,7 +120,7 @@ export default function DangKy() {
                     Tiếp tục với Google
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor:'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', marginLeft: '5%', marginTop: 10, borderWidth: 1, borderColor: 'gray', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <Image
                         source={require('../imgs/apple.png')}
@@ -88,17 +140,18 @@ export default function DangKy() {
                 hoặc tạo 1 tài khoản
             </Text>
             <View
-                style={{ width: '90%', height: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF' }}
+                style={{ width: '90%', height: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', zIndex: 1 }}
             >
-                <TextInput
-                    style={{ width: '90%', height: '100%', marginTop: 0, fontSize: 24, color:'white' }}
-                    placeholder='Chọn ngày sinh của bạn'
-                    placeholderTextColor={'#F0F0EF'}
-                    value={dateOfBirth}
+                <DatePicker
+                    customInput={<CustomInput />}
+                    placeholderText='Chọn ngày sinh'
+                    selected={selectedDate}
+                    onChange={handleChange}
+                    dateFormat="dd-MM-yyyy"
+                    isClearable
                 />
                 <Pressable
                     style={{ width: '10%', height: '100%', marginBottom: 15, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}
-                    onPress={handleIconPress}
                 >
                     <Octicons name="info" size={30} color="white" />
                 </Pressable>
@@ -109,18 +162,12 @@ export default function DangKy() {
             >
                 Ngày sinh
             </Text>
-            {/* Hiển thị DateTimePicker */}
-            {showDatePicker && (
-                <DatetimePicker
-                    value={selectedDate}
-                    mode="date"
-                    onChange={handleDateChange}
-                />
-            )}
             <TextInput
                 style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
                 placeholder='example@email.com'
                 placeholderTextColor={'#F0F0EF'}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
             />
             <Text
                 style={{ width: '90%', marginLeft: '5%', marginTop: 2, fontSize: 14, fontWeight: 400, color: '#F0F0EF' }}
@@ -131,6 +178,9 @@ export default function DangKy() {
                 style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
                 placeholder='Tạo mật khẩu của bạn'
                 placeholderTextColor={'#F0F0EF'}
+                secureTextEntry={true}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
             />
             <Text
                 style={{ width: '90%', marginLeft: '5%', marginTop: 2, fontSize: 14, fontWeight: 400, color: '#F0F0EF' }}
@@ -144,7 +194,7 @@ export default function DangKy() {
             </Text>
             <View style={{ flexDirection: 'row' }}>
                 <CheckBox
-                    checked={checked}
+                    checked={isGV}
                     onPress={() => toggleCheckbox(true)}
                     title={"Phải"}
                     iconType="material-community"
@@ -156,7 +206,7 @@ export default function DangKy() {
                     uncheckedColor='#FFFFFF'
                 />
                 <CheckBox
-                    checked={!checked}
+                    checked={!isGV}
                     onPress={() => toggleCheckbox(false)}
                     title={"Không"}
                     iconType="material-community"
@@ -199,6 +249,7 @@ export default function DangKy() {
             </Text>
             <Pressable
                 style={{ width: '90%', height: 49, marginLeft: '5%', marginTop: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: '#4254FE' }}
+                onPress={handleSignUp}
             >
                 <Text
                     style={{ width: 149, height: 30, fontSize: 22, fontWeight: 'bold', textAlign: 'center', color: '#FFFFFF' }}
@@ -216,4 +267,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#2F3856',
         // alignItems: 'center',
     },
+
 });
