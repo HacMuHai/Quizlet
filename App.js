@@ -19,9 +19,16 @@ export default function App() {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='CaiDat'>
+        <Stack.Navigator initialRouteName='DangNhap'>
           <Stack.Screen name="DangNhap" component={DangNhap} options={{ headerShown: false }} />
-          <Stack.Screen name="DangKy" component={DangKy} options={{ headerShown: false }} />
+          <Stack.Screen name="DangKy" component={DangKy} options={{
+            headerShown: true,
+            headerTitle: '',
+            headerStyle: {
+              backgroundColor: '#2F3856'
+            },
+            headerTintColor:'white'
+          }} />
           <Stack.Screen name="CaiDat" component={CaiDat} options={{ headerShown: false }} />
           <Stack.Screen name="HocPhan" component={HocPhan} options={{ headerShown: false }} />
           {/* <Stack.Screen name="TrangChu" component={TrangChu} options={{ headerShown: false }} /> */}
