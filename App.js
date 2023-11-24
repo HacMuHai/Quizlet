@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -26,7 +26,6 @@ export default function App() {
           <Stack.Screen name="HocPhan" component={HocPhan} options={{ headerShown: false }} />
           {/* <Stack.Screen name="TrangChu" component={TrangChu} options={{ headerShown: false }} /> */}
           <Stack.Screen name="bottomTab" component={bottomTab} options={{ headerShown: false }} />
-        
         </Stack.Navigator>
       </NavigationContainer>
     </View>

@@ -1,98 +1,89 @@
 import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 
 
-const data = [
-    {
-        id: 1,
-        vocabulary: "involve"
-    },
-    {
-        id: 2,
-        vocabulary: "Start"
-    },
-    {
-        id: 3,
-        vocabulary: "Go"
-    },
-    {
-        id: 4,
-        vocabulary: "Reject"
-    },
-    {
-        id: 5,
-        vocabulary: "Inject"
-    },
-    {
-        id: 6,
-        vocabulary: "Back"
-    },
-    {
-        id: 7,
-        vocabulary: "School"
-    },
-    {
-        id: 8,
-        vocabulary: "Home"
-    },
-    {
-        id: 9,
-        vocabulary: "Stadium"
-    },
-    {
-        id: 10,
-        vocabulary: "Football"
-    },
-    {
-        id: 11,
-        vocabulary: "Voleyball"
-    },
-    {
-        id: 12,
-        vocabulary: "Basketball"
-    },
-    {
-        id: 13,
-        vocabulary: "Board"
-    },
-]
 
 const SCREEN_WIDTH = 300;
 const DOT_PAGE_SIZE = 7;
 
 export default function HocPhan() {
+
+
+    const BASE_URL = 'https://pwqz9y-8080.csb.app/courses?id=1'
+
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+
+        fetch(BASE_URL)
+            .then(response => response.json())
+            .then(json => setData(json[0].vocabularies))
+            .catch(error => console.error(error))
+
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const renderItemOfVocalbulary = ({ item, index }) => (
         <View style={[styles.viewOfFlatlist, { marginTop: index === 0 ? 20 : 20 }]}>
             <Text style={styles.textOfFlatlist}>{item.vocabulary}</Text>
         </View>
     )
+    // const renderItemOfDot = ({ item, index }) => (
+    //     <View style={{ flexDirection: 'row', height: 15 }}>
+    //         <View style={[styles.dot, { opacity: currentPage === index ? 1 : 0.5 }]} key={item.id} />
+    //     </View>
+    // )
+
+    // ---------------------------------------------------- handle scroll mới
+
     const renderItemOfDot = ({ item, index }) => (
         <View style={{ flexDirection: 'row', height: 15 }}>
-            <View style={[styles.dot, { opacity: currentPage === index ? 1 : 0.5 }]} key={item.id} />
+            <View style={[styles.dot, { opacity: Math.floor(scrollOffset / SCREEN_WIDTH) === index ? 1 : 0.5 }]} key={item.id} />
         </View>
-    )
-
-
-    // handle scroll flatlist
-
-
-    const flatlistRef = useRef();
+    );
     const [currentPage, setCurrentPage] = useState(0);
-
+    const [scrollOffset, setScrollOffset] = useState(0);
+    const flatlistRef = useRef(null);
 
 
 
     const handleScroll = (event) => {
         const offset = event.nativeEvent.contentOffset.x;
+        setScrollOffset(offset);
         const currentIndex = Math.floor(offset / SCREEN_WIDTH);
         setCurrentPage(currentIndex);
-
-        if (currentIndex >= DOT_PAGE_SIZE - 1 && flatlistRef.current) {
-            const newPage = currentIndex + 1;
-            flatlistRef.current.scrollToIndex({ index: newPage });
-        }
     };
+
+
+
+
+
+
+    // ---------------------------------------------------- handle scroll cũ
+
+    // handle scroll flatlist
+
+
+    // const flatlistRef = useRef();
+    // const [currentPage, setCurrentPage] = useState(0);
+
+
+
+
+    // const handleScroll = (event) => {
+    //     const offset = event.nativeEvent.contentOffset.x;
+    //     const currentIndex = Math.floor(offset / SCREEN_WIDTH);
+    //     setCurrentPage(currentIndex);
+
+    //     if (currentIndex >= DOT_PAGE_SIZE - 1 && flatlistRef.current) {
+    //         const newPage = currentIndex + 1;
+    //         flatlistRef.current.scrollToIndex({ index: newPage });
+    //     }
+    // };
 
 
 
@@ -111,11 +102,11 @@ export default function HocPhan() {
                     pagingEnabled
                     onMomentumScrollEnd={e => {
                         const offset = e.nativeEvent.contentOffset.x;
-                        const currentPage = Math.floor(offset / SCREEN_WIDTH);
-                        // setCurrentPage(currentPage);
+                        const currentIndex = Math.floor(offset / SCREEN_WIDTH);
                         setCurrentPage(currentIndex);
                     }}
                     onScroll={handleScroll}
+                    ref={flatlistRef}
                 />
             </View>
             <View style={{ width: '100%', marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
@@ -127,6 +118,7 @@ export default function HocPhan() {
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ width: Math.min(data.length * 20, 7 * 20) }}
+                    onScroll={handleScroll}
                 />
             </View>
             <View style={{ width: '90%', height: 30, marginTop: 10, marginLeft: '5%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -228,7 +220,7 @@ const styles = StyleSheet.create({
         // marginTop: 10
     },
     textOfFlatlist: {
-        width: 107,
+        width: 200,
         height: 26,
         fontSize: 28,
         fontWeight: 400,
