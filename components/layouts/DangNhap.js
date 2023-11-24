@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable, ScrollView } from 'react-native';
-import FlashMessage, { showMessage } from "react-native-flash-message";
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import React, { useState, useEffect } from 'react';
 
 
@@ -17,27 +17,115 @@ export default function DangNhap({ navigation, route }) {
 
     const [data, setData] = useState([])
 
+    // config alert
+    const toastConfig = {
+        success: (props) => (
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'green' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 30, // Đặt kích thước chữ
+                    fontWeight: '700', // Có thể thêm các thuộc tính kiểu khác tại đây
+                    color: 'black'
+                }}
+                text2Style={{
+                    fontSize: 15, // Đặt kích thước chữ
+                    fontWeight: '500', // Có thể thêm các thuộc tính kiểu khác tại đây
+                    color: 'green'
+                }}
+            />
+        ),
+        error: (props) => (
+            <ErrorToast
+                {...props}
+                style={{ borderLeftColor: 'red' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 30, // Đặt kích thước chữ
+                    fontWeight: '700',
+                    color: 'black'
+                }}
+                text2Style={{
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: 'red'
+                }}
+            />
+        ),
+    };
     // xu li dang nhap
-
     function handleLogin() {
+        if (!email || !password) {
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Vui lòng nhập đầy đủ email và mật khẩu', // Nội dung
+                position: 'top',
+                topOffset: 10,
+            });
+            return;
+        }
+
         fetch(BASE_URL)
             .then(response => response.json())
             .then(json => {
-                setData(json)
-                console.log(data)
-                if (json.find(item => item.email === email && item.password === password)) {
-                    console.log("dang nhap thanh cong!")
+                setData(json);
+
+                const isSuccess = json.find(item => item.email === email && item.password === password);
+
+                if (isSuccess) {
+                    Toast.show({
+                        type: 'success', // Loại thông báo: 'success', 'error', 'info'
+                        text1: 'Thông báo', // Tiêu đề
+                        text2: 'Đăng nhập thành công!', // Nội dung
+                        position: 'top',
+                        topOffset: 10,
+                    });
                 } else {
-                    console.log("dang nhap that bai!")
+                    Toast.show({
+                        type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                        text1: 'Lỗi', // Tiêu đề
+                        text2: 'Đăng nhập thất bại!', // Nội dung
+                        position: 'top',
+                        topOffset: 10,
+                    });
                 }
             })
-            .catch(error => console.error(error))
-
+            .catch(error => {
+                console.error(error);
+                showMessage({
+                    message: "Đã có lỗi xảy ra khi tương tác với API",
+                    type: "danger",
+                });
+                Toast.show({
+                    type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                    text1: 'Lỗi', // Tiêu đề
+                    text2: 'Lỗi khi tương tác với API', // Nội dung
+                    position: 'top',
+                    topOffset: 10,
+                });
+            });
     }
+
+    // function handleLogin() {
+    //     fetch(BASE_URL)
+    //         .then(response => response.json())
+    //         .then(json => {
+    //             setData(json)
+    //             console.log(data)
+    //             if (json.find(item => item.email === email && item.password === password)) {
+    //                 console.log("dang nhap thanh cong!")
+    //             } else {
+    //                 console.log("dang nhap that bai!")
+    //             }
+    //         })
+    //         .catch(error => console.error(error))
+
+    // }
 
     return (
         <ScrollView style={styles.container}>
-            <FlashMessage position="top" />
             <Text style={{ width: 228, height: 49, marginTop: 15, marginLeft: 20, color: '#FFFFFF', fontFamily: null, fontSize: 18, fontWeight: 400 }}>
                 Đăng nhập nhanh bằng
             </Text>
@@ -113,7 +201,19 @@ export default function DangNhap({ navigation, route }) {
             >
                 Mật khẩu
             </Text>
-            <View style={{ flexDirection: 'row', width: '80%', marginLeft: '10%', marginTop: 20, justifyContent: 'center' }}>
+            <TouchableOpacity
+                style={{ width: '90%', height: 20, marginLeft: '5%', alignItems: 'flex-end' }}
+                onPress={() => {
+                    navigation.navigate('DangKy')
+                }}
+            >
+                <Text
+                    style={{ marginLeft: 5, fontSize: 16, fontWeight: 500, color: '#969EE7' }}
+                >
+                    chưa có tài khoản?
+                </Text>
+            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', width: '80%', marginLeft: '10%', marginTop: 10, justifyContent: 'center' }}>
                 <Text
                     style={{ fontSize: 16, fontWeight: 500, color: '#F0F0EF' }}
                 >
@@ -185,6 +285,9 @@ export default function DangNhap({ navigation, route }) {
                     Đăng nhập
                 </Text>
             </Pressable>
+            <View style={{ height: 40 }} />
+            {/* thông báo khi đăng kí */}
+            <Toast ref={(ref) => Toast.setRef(ref)} config={toastConfig} />
         </ScrollView>
     );
 }

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Pressable } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Octicons } from '@expo/vector-icons';
-import FlashMessage, { showMessage } from "react-native-flash-message";
+
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
@@ -19,6 +22,7 @@ export default function DangKy({ navigation, route }) {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [isGV, setIsGV] = useState(true);
 
@@ -31,6 +35,67 @@ export default function DangKy({ navigation, route }) {
         isGV: isGV
     }
     const postUser = async () => {
+        // Kiểm tra điều kiện cho từng trường
+        if (!selectedDate) {
+
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Vui lòng chọn ngày sinh', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            return;
+        }
+
+        if (!email || !name || !password) {
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Vui lòng nhập đủ thông tin', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            return;
+        }
+
+        // Kiểm tra định dạng email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Định dạng email không hợp lệ', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            return;
+        }
+        // Kiểm tra tên
+        const nameRegex = /^[A-Za-z][A-Za-z0-9]*$/;
+        if (!nameRegex.test(name)) {
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Tên phải bắt đầu bằng chữ cái', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            return;
+        }
+        // Kiểm tra mật khẩu
+        if (password.length < 8) {
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'Mật khẩu phải có ít nhất 8 kí tự', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            return;
+        }
+
+
 
         try {
             await fetch(BASE_URL, {
@@ -48,13 +113,52 @@ export default function DangKy({ navigation, route }) {
             });
             navigation.navigate('DangNhap', { newUser: newUser });
         } catch (error) {
-            showMessage({
-                message: error.message || 'Something went wrong',
-                type: 'info',
-                duration: 1000
+            Toast.show({
+                type: 'error', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Lỗi', // Tiêu đề
+                text2: 'lỗi', // Nội dung
+                position: 'top',
+                topOffset: 200,
             });
         }
+    };
 
+    // config alert
+    const toastConfig = {
+        success: (props) => (
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'green' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 30, // Đặt kích thước chữ
+                    fontWeight: '700', // Có thể thêm các thuộc tính kiểu khác tại đây
+                    color: 'black'
+                }}
+                text2Style={{
+                    fontSize: 15, // Đặt kích thước chữ
+                    fontWeight: '500', // Có thể thêm các thuộc tính kiểu khác tại đây
+                    color: 'green'
+                }}
+            />
+        ),
+        error: (props) => (
+            <ErrorToast
+                {...props}
+                style={{ borderLeftColor: 'red' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 30, // Đặt kích thước chữ
+                    fontWeight: '700',
+                    color: 'black'
+                }}
+                text2Style={{
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: 'red'
+                }}
+            />
+        ),
     };
     // xu li dang ki
     const handleSignUp = async () => {
@@ -88,7 +192,9 @@ export default function DangKy({ navigation, route }) {
 
     return (
         <ScrollView style={styles.container}>
-            <FlashMessage position="top" />
+
+
+
             <Text style={{ width: 228, height: 49, marginTop: 15, marginLeft: 20, color: '#FFFFFF', fontFamily: null, fontSize: 18, fontWeight: 400 }}>
                 Đăng kí nhanh bằng
             </Text>
@@ -176,6 +282,18 @@ export default function DangKy({ navigation, route }) {
             </Text>
             <TextInput
                 style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
+                placeholder='Tên người dùng'
+                placeholderTextColor={'#F0F0EF'}
+                value={name}
+                onChangeText={(text) => setName(text)}
+            />
+            <Text
+                style={{ width: '90%', marginLeft: '5%', marginTop: 2, fontSize: 14, fontWeight: 400, color: '#F0F0EF' }}
+            >
+                Name
+            </Text>
+            <TextInput
+                style={{ width: '90%', height: 40, marginLeft: '5%', marginTop: 10, borderBottomWidth: 1, borderColor: '#F0F0EF', fontSize: 24, color: 'white' }}
                 placeholder='Tạo mật khẩu của bạn'
                 placeholderTextColor={'#F0F0EF'}
                 secureTextEntry={true}
@@ -187,6 +305,7 @@ export default function DangKy({ navigation, route }) {
             >
                 Mật khẩu
             </Text>
+
             <Text
                 style={{ width: '90%', marginLeft: '4.5%', marginTop: 10, fontSize: 14, fontWeight: 500, color: '#F0F0EF' }}
             >
@@ -257,6 +376,9 @@ export default function DangKy({ navigation, route }) {
                     Đăng ký
                 </Text>
             </Pressable>
+            <View style={{ height: 40 }} />
+            {/* thông báo khi đăng kí */}
+            <Toast ref={(ref) => Toast.setRef(ref)} config={toastConfig} />
         </ScrollView>
     );
 }
