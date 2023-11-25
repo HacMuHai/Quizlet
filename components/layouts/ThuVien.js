@@ -1,6 +1,7 @@
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
 
@@ -27,8 +28,19 @@ export default function App({ navigation, route }) {
     const [arrCourse, setCourse] = useState([])
     const [arrClass, setClass] = useState([])
     const [arrFolder, setFolder] = useState([])
+    const [check, setCheck] = useState(false)
+    const [start, setStart] = useState(route.params?.start || 0)
     var arrView = []
     const view = []
+
+    const isFocused = useIsFocused()
+
+    useEffect(() => {
+        if (isFocused) {
+            setStart(route.params?.start)
+            console.log("start: " + start);
+        }
+    }, [isFocused])
 
     function getAPI() {
         var folders = []
@@ -65,14 +77,18 @@ export default function App({ navigation, route }) {
                         folders.map(vF => vF.id).includes(v.folderID) ||
                         classes.map(vC => vC.id).includes(v.classID)
                 })
+                console.log('1 course', arr);
                 setCourse(arr)
-
             })
 
     }
 
     useEffect(() => {
+        // if(!check){
         getAPI()
+        // locThuVien()
+        // }
+        // setCheck(true)
     }, [])
 
 
@@ -128,18 +144,15 @@ export default function App({ navigation, route }) {
         );
     };
 
-
     arrCourse.forEach(v => arrView.push(v))
 
+    // function locThuVien(){
     if (arrView.length > 0) {
         let tempArr = arrView.splice(0, 1)[0]
-        console.log(tempArr);
-
+        // console.log(tempArr);
 
         //Các học phần học hôm này
         let toDay = new Date();
-        // view.push(renderTitleCourse(toDay + "1"))
-
         if (tempArr.lastOpened > toDay) {
             view.push(renderTitleCourse("Hôm nay"))
             do {
@@ -147,9 +160,8 @@ export default function App({ navigation, route }) {
 
                 if (arrView.length <= 0)
                     break
-
                 tempArr = arrView.splice(0, 1)[0]
-                console.log(tempArr);
+                // console.log(tempArr);
             }
             while (tempArr.lastOpened > toDay)
         }
@@ -160,7 +172,7 @@ export default function App({ navigation, route }) {
         yesterday.setHours(0, 0, 0, 0)
         // view.push(renderTitleCourse(yesterday + "2"))
 
-        if (tempArr.lastOpened > yesterday) {
+        if (tempArr.lastOpened > yesterday && arrView.length > 0) {
             view.push(renderTitleCourse("Hôm qua"))
             do {
                 view.push(renderCourseView(tempArr))
@@ -169,36 +181,34 @@ export default function App({ navigation, route }) {
                     break
 
                 tempArr = arrView.splice(0, 1)[0]
-                console.log(tempArr);
+                // console.log(tempArr);
             }
             while (tempArr.lastOpened > yesterday)
         }
 
 
+        //trong tuần
         let thisWeek = new Date();
         thisWeek.setDate(toDay.getDate() - toDay.getDay())
         thisWeek.setHours(0, 0, 0, 0)
-        // view.push(renderTitleCourse(thisWeek + "3"))
-
         if (tempArr.lastOpened > thisWeek) {
             view.push(renderTitleCourse("Tuần này"))
             do {
                 view.push(renderCourseView(tempArr))
 
-                if (arrView.length > 0)
+                if (arrView.length <= 0)
                     break
 
                 tempArr = arrView.splice(0, 1)[0]
-                console.log(tempArr);
+                // console.log(tempArr);
             }
             while (tempArr.lastOpened > thisWeek)
         }
 
+        //tuan truoc
         let lastWeek = new Date();
         lastWeek.setDate(toDay.getDate() - toDay.getDay() - 7)
         lastWeek.setHours(0, 0, 0, 0)
-        // view.push(renderTitleCourse(lastWeek + "4"))
-
         if (tempArr.lastOpened > lastWeek) {
             view.push(renderTitleCourse("Tuần trước"))
             do {
@@ -208,11 +218,38 @@ export default function App({ navigation, route }) {
                     break
 
                 tempArr = arrView.splice(0, 1)[0]
-                console.log("Tuần trước", tempArr);
+                // console.log("Tuần trước", tempArr);
             }
             while (tempArr.lastOpened > lastWeek)
         }
+
+        //con lại
+        while (tempArr.lastOpened <= lastWeek) {
+            var thang = tempArr.lastOpened.getMonth()
+            var year = tempArr.lastOpened.getFullYear()
+            console.log("thang: " + thang);
+            console.log("thang: " + year);
+            console.log(`tháng ${thang + 1}, năm ${year + 1900}`);
+            view.push(renderTitleCourse(`tháng ${thang + 1} năm ${year}`))
+            do {
+                view.push(renderCourseView(tempArr))
+
+                if (arrView.length <= 0)
+                    tempArr.lastOpened=new Date()
+                else
+                    tempArr = arrView.splice(0, 1)[0]
+                // console.log(tempArr);
+            }
+            while (tempArr.lastOpened.getMonth() === thang && tempArr.lastOpened.getYear() === year)
+        }
+
     }
+    // }
+
+    // useEffect(() => {
+    //     locThuVien()
+    // }, [arrView])
+    // console.log(arrView);
 
     function HocPhanTab() {
         return (
@@ -244,7 +281,6 @@ export default function App({ navigation, route }) {
             </View>
         )
     }
-
     function LopHocTab() {
         return (
             <View style={{ flex: 1, backgroundColor: '#0A082D' }}>
@@ -257,7 +293,7 @@ export default function App({ navigation, route }) {
                                     borderWidth: 3, gap: 10, borderColor: '#555E7A', justifyContent: 'space-between', padding: 15,
                                     height: 100, borderRadius: 15, marginTop: 20, marginHorizontal: 10
                                 }}
-                            // onPress={()=>navigation.navigate('')}
+                            // onPress={()=>navigation.push('LopHoc')}
                             >
                                 <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
                                     <Image
@@ -325,8 +361,9 @@ export default function App({ navigation, route }) {
 
     const Tab = createMaterialTopTabNavigator()
 
-    const tabScreen =['HocPhanTab','LopHocTab','ThuMucTab']
-    const {chonTab} = route.params || {chonTab:0}
+    var tabScreen = ['HocPhanTab', 'LopHocTab', 'ThuMucTab']
+
+
     return (
         <View style={{ flex: 1, backgroundColor: '#0A082D', paddingTop: 10 }}>
             <View style={{ height: 30, flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -339,7 +376,7 @@ export default function App({ navigation, route }) {
                 </TouchableOpacity>
             </View>
             <Tab.Navigator style={{ flex: 15 }}
-                initialRouteName={tabScreen[chonTab]}
+                initialRouteName={tabScreen[start]}
                 tabBarOptions={{
                     scrollEnabled: true,
                     activeTintColor: "white",

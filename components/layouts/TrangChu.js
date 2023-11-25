@@ -137,7 +137,7 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Các học phần</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
-                                onPress={() => navigation.navigate('ThuVien', { chonTab: 0 })}
+                                onPress={() => navigation.navigate('ThuVien', { start: 0 })}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
                             </TouchableOpacity>
@@ -194,7 +194,7 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Thư mục</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
-                                onPress={() => navigation.push('ThuVien', { chonTab: 2 })}
+                                onPress={() => navigation.navigate('ThuVien', { start: 2 })}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
                             </TouchableOpacity>
@@ -250,7 +250,9 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Lớp học</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
-                                onPress={() => navigation.navigate('ThuVien', { chonTab: 1 })}
+                                onPress={() => {
+                                    navigation.navigate('ThuVien', { start: 1, key: Date.now()})
+                                }}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
                             </TouchableOpacity>
