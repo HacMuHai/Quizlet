@@ -131,6 +131,33 @@
       "title": "Học phần 3",
       "desc": "Mô tả học phần 3",
       "lastOpened": "2022-11-24T01:50:00Z"
+    },
+    {
+      "id": 4,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
+        },
+        {
+          "language": "english",
+          "translation": "Translation A"
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation V"
+        }
+      ],
+      "folderID": 1,
+      "userID": 2,
+      "classID": 1,
+      "title": "Học phần 4",
+      "desc": "Mô tả học phần 4",
+      "lastOpened": "2023-05-24T01:50:00Z"
     }
   ]  
 }

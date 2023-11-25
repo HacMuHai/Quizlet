@@ -230,7 +230,7 @@ export default function App({ navigation, route }) {
             console.log("thang: " + thang);
             console.log("thang: " + year);
             console.log(`tháng ${thang + 1}, năm ${year + 1900}`);
-            view.push(renderTitleCourse(`tháng ${thang + 1}, năm ${year}`))
+            view.push(renderTitleCourse(`tháng ${thang + 1} năm ${year}`))
             do {
                 view.push(renderCourseView(tempArr))
 
