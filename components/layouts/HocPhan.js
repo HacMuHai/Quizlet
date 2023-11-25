@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
 import { useState, useRef, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+// import { date } from 'date-fns/locale';
 
 
 
@@ -10,35 +12,80 @@ const DOT_PAGE_SIZE = 7;
 export default function HocPhan() {
 
 
-    const BASE_URL = 'https://pwqz9y-8080.csb.app/courses?id=1'
+    // fetch api
 
-    const [data, setData] = useState([]);
+    const COURSE_ID = 1; // Id lấy từ route
+
+    const BASE_URL = `https://pwqz9y-8080.csb.app/courses?id=${COURSE_ID}`
+
+    const BASE_URL_UPDATE = `https://pwqz9y-8080.csb.app/courses/${COURSE_ID}`
+
+
+    const [data, setData] = useState([]); // data của vocabularies
+    const [allData, setAllData] = useState([]);
+
 
     const fetchData = async () => {
 
         fetch(BASE_URL)
             .then(response => response.json())
-            .then(json => setData(json[0].vocabularies))
+            .then((json) => {
+                setData(json[0].vocabularies)
+                setAllData(json)
+            })
             .catch(error => console.error(error))
 
     };
+
+
+
+    // Cập nhật lastOpened
+
+
+    // Xử lí khi trang được truy cập để cập nhật lastOpened
+
+    const isFocused = useIsFocused();
+
+    const updateLastOpenedInAPI = async () => {
+        try {
+            // Gửi yêu cầu cập nhật lastOpened lên API ở đây
+            // Sử dụng fetch hoặc axios để gửi yêu cầu lên server
+            const response = await fetch(BASE_URL_UPDATE, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Bạn có thể thêm các header cần thiết khác tại đây
+                },
+                body: JSON.stringify({
+                    lastOpened: new Date().toISOString(),
+                }),
+            });
+            // Xử lý phản hồi từ API nếu cần
+            const data = await response.json();
+        } catch (error) {
+            console.error('Error updating lastOpened:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (isFocused) {
+            updateLastOpenedInAPI();
+        }
+    }, [isFocused]);
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    const renderItemOfVocalbulary = ({ item, index }) => (
-        <View style={[styles.viewOfFlatlist, { marginTop: index === 0 ? 20 : 20 }]}>
-            <Text style={styles.textOfFlatlist}>{item.vocabulary}</Text>
-        </View>
-    )
-    // const renderItemOfDot = ({ item, index }) => (
-    //     <View style={{ flexDirection: 'row', height: 15 }}>
-    //         <View style={[styles.dot, { opacity: currentPage === index ? 1 : 0.5 }]} key={item.id} />
-    //     </View>
-    // )
 
-    // ---------------------------------------------------- handle scroll mới
+    const renderItemOfVocalbulary = ({ item, index }) => {
+        return (
+            <View style={[styles.viewOfFlatlist, { marginTop: index === 0 ? 20 : 20 }]}>
+                <Text style={styles.textOfFlatlist}>{item.vocabulary}</Text>
+            </View>
+        );
+    };
+    //handle scroll
 
     const renderItemOfDot = ({ item, index }) => (
         <View style={{ flexDirection: 'row', height: 15 }}>
@@ -59,44 +106,15 @@ export default function HocPhan() {
     };
 
 
-
-
-
-
-    // ---------------------------------------------------- handle scroll cũ
-
-    // handle scroll flatlist
-
-
-    // const flatlistRef = useRef();
-    // const [currentPage, setCurrentPage] = useState(0);
-
-
-
-
-    // const handleScroll = (event) => {
-    //     const offset = event.nativeEvent.contentOffset.x;
-    //     const currentIndex = Math.floor(offset / SCREEN_WIDTH);
-    //     setCurrentPage(currentIndex);
-
-    //     if (currentIndex >= DOT_PAGE_SIZE - 1 && flatlistRef.current) {
-    //         const newPage = currentIndex + 1;
-    //         flatlistRef.current.scrollToIndex({ index: newPage });
-    //     }
-    // };
-
-
-
-
-
-
     return (
         <ScrollView style={styles.container}>
             <View>
                 <FlatList
                     data={data}
                     renderItem={renderItemOfVocalbulary}
-                    keyExtractor={item => item.id.toString()}
+                    // keyExtractor={item => item.id}
+                    keyExtractor={item => (item && item.id ? item.id.toString() : '')}
+
                     horizontal={true}
                     showsHorizontalScrollIndicator={true}
                     pagingEnabled
@@ -113,7 +131,8 @@ export default function HocPhan() {
                 <FlatList
                     data={data}
                     renderItem={renderItemOfDot}
-                    keyExtractor={item => item.id.toString()}
+                    // keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => (item && item.id ? item.id.toString() : '')}
                     horizontal={true}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
@@ -217,7 +236,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 30,
-        // marginTop: 10
+        marginTop: 20
     },
     textOfFlatlist: {
         width: 200,

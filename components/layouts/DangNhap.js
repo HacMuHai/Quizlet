@@ -75,18 +75,15 @@ export default function DangNhap({ navigation, route }) {
                 const isSuccess = json.find(item => item.email === email && item.password === password);
 
                 if (isSuccess) {
-                    Toast.show({
-                        type: 'success', // Loại thông báo: 'success', 'error', 'info'
-                        text1: 'Thông báo', // Tiêu đề
-                        text2: 'Đăng nhập thành công!', // Nội dung
-                        position: 'top',
-                        topOffset: 10,
-                    });
+                    // Xử lí cho trang cài đặt
+                    global.emailOfUser = email;
+                    global.nameOfUser = isSuccess.name;
+                    navigation.navigate('HocPhan');
                 } else {
                     Toast.show({
                         type: 'error', // Loại thông báo: 'success', 'error', 'info'
                         text1: 'Lỗi', // Tiêu đề
-                        text2: 'Đăng nhập thất bại!', // Nội dung
+                        text2: 'Sai tài khoản hoặc mật khẩu!', // Nội dung
                         position: 'top',
                         topOffset: 10,
                     });
@@ -202,7 +199,7 @@ export default function DangNhap({ navigation, route }) {
                 Mật khẩu
             </Text>
             <TouchableOpacity
-                style={{ width: '90%', height: 20, marginLeft: '5%', alignItems: 'flex-end' }}
+                style={{ width: '40%', height: 20, marginLeft: '55%', alignItems: 'flex-end' }}
                 onPress={() => {
                     navigation.navigate('DangKy')
                 }}

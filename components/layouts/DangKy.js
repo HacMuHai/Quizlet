@@ -26,14 +26,6 @@ export default function DangKy({ navigation, route }) {
     const [password, setPassword] = useState('');
     const [isGV, setIsGV] = useState(true);
 
-
-    // tao ra 1 user moi de chuyen ve dang nhap
-    const newUser = {
-        dob: formatDate(selectedDate),
-        email: email,
-        password: password,
-        isGV: isGV
-    }
     const postUser = async () => {
         // Kiểm tra điều kiện cho từng trường
         if (!selectedDate) {
@@ -107,11 +99,23 @@ export default function DangKy({ navigation, route }) {
                 body: JSON.stringify({
                     dob: formatDate(selectedDate),
                     email: email,
+                    name: name,
                     password: password,
                     isGV: isGV
                 }),
             });
-            navigation.navigate('DangNhap', { newUser: newUser });
+            Toast.show({
+                type: 'success', // Loại thông báo: 'success', 'error', 'info'
+                text1: 'Thông báo', // Tiêu đề
+                text2: 'Đăng ký tài khoản thành công', // Nội dung
+                position: 'top',
+                topOffset: 200,
+            });
+            setSelectedDate(null);
+            setEmail('');
+            setName('');
+            setPassword('');
+            setIsGV(true);
         } catch (error) {
             Toast.show({
                 type: 'error', // Loại thông báo: 'success', 'error', 'info'

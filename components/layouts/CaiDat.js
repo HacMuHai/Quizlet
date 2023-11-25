@@ -5,7 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 
 
 
-export default function CaiDat() {
+export default function CaiDat({ navigation, route }) {
 
     // handle switch
     const [isEnabled, setIsEnabled] = useState(false);
@@ -48,7 +48,7 @@ export default function CaiDat() {
                         </Text>
                         <TextInput
                             style={{ height: 25 }}
-                            placeholder='hoaihiep@gmail.com'
+                            placeholder={global.emailOfUser}
                             placeholderTextColor={'#BEC9CD'}
                         />
                     </View>
@@ -65,7 +65,7 @@ export default function CaiDat() {
                         </Text>
                         <TextInput
                             style={{ height: 25 }}
-                            placeholder='hoaihiep32'
+                            placeholder={global.nameOfUser}
                             placeholderTextColor={'#BEC9CD'}
                         />
                     </View>
@@ -179,13 +179,21 @@ export default function CaiDat() {
             </View>
             <View style={{ width: '100%', height: 60, marginTop: 30, backgroundColor: '#2F3857' }}>
                 <View style={{ width: '92%', height: 60, marginLeft: '8%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ width: '85%', justifyContent: 'center', marginTop: 10, marginLeft: 10 }}>
+                    <Pressable
+                        style={{ width: '85%', justifyContent: 'center', marginTop: 10, marginLeft: 10 }}
+                        onPress={() => {
+                            // Cập nhật lại user đăng nhập.
+                            global.emailOfUser = '';
+                            global.nameOfUser = '';
+                            navigation.navigate('DangNhap');
+                        }}
+                    >
                         <Text
                             style={{ width: 145, height: 35, fontSize: 16, fontWeight: 'bold', color: '#1e90ff' }}
                         >
                             Đăng xuất
                         </Text>
-                    </View>
+                    </Pressable>
                     <Pressable style={{ width: '13%', marginLeft: 0 }}>
                         <Entypo name="chevron-right" size={42} color="white" />
                     </Pressable>
