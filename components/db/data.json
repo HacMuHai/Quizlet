@@ -1,20 +1,12 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Nguyen Van A",
-      "email": "vana@example.com",
-      "password": "hashed_password",
-      "dob": "1990-01-01",
-      "isGv": false
-    },
-    {
-      "id": 2,
-      "name": "Nguyen Van B",
-      "email": "vanb@example.com",
-      "password": "hashed_password",
-      "dob": "1995-05-05",
-      "isGv": true
+      "dob": "13-06-2002",
+      "email": "hiep@gmail.com",
+      "name": "hhiep32",
+      "password": "12345678",
+      "isGV": false,
+      "id": 1
     }
   ],
   "folders": [
@@ -60,19 +52,27 @@
       "vocabularies": [
         {
           "language": "english",
-          "translation": "Translation A"
+          "translation": "Translation A",
+          "vocabulary": "go",
+          "id": 1
         },
         {
           "language": "vietnamese",
-          "translation": "Translation V"
+          "translation": "Translation V",
+          "vocabulary": "weak",
+          "id": 2
         },
         {
           "language": "english",
-          "translation": "Translation A"
+          "translation": "Translation A",
+          "vocabulary": "strong",
+          "id": 3
         },
         {
           "language": "vietnamese",
-          "translation": "Translation V"
+          "translation": "Translation V",
+          "vocabulary": "swimming",
+          "id": 4
         }
       ],
       "folderID": 1,
