@@ -9,12 +9,12 @@ import { Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 const SCREEN_WIDTH = 300;
 const DOT_PAGE_SIZE = 7;
 
-export default function HocPhan({route}) {
+export default function HocPhan({ route }) {
 
 
     // fetch api
 
-    const COURSE_ID = route.params.courseId || 1; // Id lấy từ route
+    const COURSE_ID = route.params?.courseId ? route.params.courseId : 1; // Id lấy từ route
 
     const BASE_URL = `http://localhost:3000/courses?id=${COURSE_ID}`
 
@@ -136,7 +136,7 @@ export default function HocPhan({route}) {
                     horizontal={true}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ width: Math.min(data.length * 20, 7 * 20) }}
+                    // contentContainerStyle={{ width: Math.min(data.length * 20, 7 * 20) }}
                     onScroll={handleScroll}
                 />
             </View>
