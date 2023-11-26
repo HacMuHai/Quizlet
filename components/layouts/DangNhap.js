@@ -78,7 +78,7 @@ export default function DangNhap({ navigation, route }) {
                     // Xử lí cho trang cài đặt
                     global.emailOfUser = email;
                     global.nameOfUser = isSuccess.name;
-                    navigation.navigate('HocPhan');
+                    navigation.navigate('bottomTab');
                 } else {
                     Toast.show({
                         type: 'error', // Loại thông báo: 'success', 'error', 'info'

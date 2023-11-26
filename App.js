@@ -18,7 +18,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='bottomTab'>
+        <Stack.Navigator initialRouteName='DangNhap'>
           <Stack.Screen name="DangNhap" component={DangNhap} options={{ headerShown: false }} />
           <Stack.Screen name="DangKy" component={DangKy} options={{
             headerShown: true,
