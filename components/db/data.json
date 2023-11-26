@@ -3,10 +3,26 @@
     {
       "dob": "13-06-2002",
       "email": "hiep@gmail.com",
-      "name": "hhiep32",
-      "password": "12345678",
+      "name": "abiep32",
+      "password": "123456",
       "isGV": false,
       "id": 1
+    },
+    {
+      "dob": "16-10-2002",
+      "email": "huuhiep@gmail.com",
+      "name": "huuhiep",
+      "password": "123456",
+      "isGV": true,
+      "id": 2
+    },
+    {
+      "dob": "01-01-1995",
+      "email": "newuser@example.com",
+      "name": "NewUser",
+      "password": "newpassword",
+      "isGV": true,
+      "id": 3
     }
   ],
   "folders": [
@@ -21,6 +37,12 @@
       "name": "Folder Y",
       "desc": "Description of Folder Y",
       "userID": 2
+    },
+    {
+      "id": 3,
+      "name": "Folder Z",
+      "desc": "Description of New Folder",
+      "userID": 1
     }
   ],
   "classes": [
@@ -30,7 +52,9 @@
       "desc": "Description of Class A",
       "userID": 1,
       "members": [
-        2
+        1,
+        2,
+        3
       ]
     },
     {
@@ -39,15 +63,18 @@
       "desc": "Description of Class B",
       "userID": 2,
       "members": [
+        2,
         1
       ]
     },
     {
       "id": 3,
-      "name": "Class C",
-      "desc": "Description of Class C",
-      "userID": 2,
-      "members": []
+      "name": "New Class",
+      "desc": "Description of New Class",
+      "userID": 3,
+      "members": [
+        3
+      ]
     }
   ],
   "courses": [
@@ -84,7 +111,7 @@
       "classID": 1,
       "title": "Học phần 1",
       "desc": "Mô tả học phần 1",
-      "lastOpened": "2023-11-26T01:25:57.458Z"
+      "lastOpened": "2023-11-26T14:32:17.602Z"
     },
     {
       "id": 2,
@@ -113,7 +140,7 @@
       "classID": 2,
       "title": "Học phần 2",
       "desc": "Mô tả học phần 2",
-      "lastOpened": "2023-11-26T01:19:17.260Z"
+      "lastOpened": "2023-11-26T14:33:40.579Z"
     },
     {
       "id": 3,
@@ -148,7 +175,7 @@
       "classID": 1,
       "title": "Học phần 3",
       "desc": "Mô tả học phần 3",
-      "lastOpened": "2023-11-26T13:04:47.893Z"
+      "lastOpened": "2023-11-26T13:57:28.727Z"
     },
     {
       "id": 4,
@@ -183,7 +210,30 @@
       "classID": 1,
       "title": "Học phần 4",
       "desc": "Mô tả học phần 4",
-      "lastOpened": "2023-11-26T01:23:53.193Z"
+      "lastOpened": "2023-11-26T13:57:35.404Z"
+    },
+    {
+      "id": 5,
+      "vocabularies": [
+        {
+          "language": "english",
+          "translation": "Translation N",
+          "vocabulary": "new word",
+          "id": 1
+        },
+        {
+          "language": "vietnamese",
+          "translation": "Translation NV",
+          "vocabulary": "new vocab",
+          "id": 2
+        }
+      ],
+      "folderID": 2,
+      "userID": 3,
+      "classID": 3,
+      "title": "New Course",
+      "desc": "Description of New Course",
+      "lastOpened": "2023-11-26T14:52:16.960Z"
     }
   ]
 }

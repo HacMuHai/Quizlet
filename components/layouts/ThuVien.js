@@ -11,12 +11,15 @@ import { selectStart, selectUser } from '../../redux/userSlice';
 
 export default function App({ navigation, route }) {
 
-    const BASE_URL = 'http://localhost:3000'
+    // const BASE_URL = 'http://localhost:3000'
+    const BASE_URL = 'https://pwqz9y-8080.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
     const heightView2 = windowDimensions.height - heightView1 - heightBottomTab
 
+    
+    const user = useSelector(selectUser)
     // const user = {
     //     "id": 1,
     //     "name": "Nguyen Van A",
@@ -31,9 +34,7 @@ export default function App({ navigation, route }) {
     const [arrClass, setClass] = useState([])
     const [arrFolder, setFolder] = useState([])
     const [check, setCheck] = useState(false)
-    // const [start, setStart] = useState(0)
-    const start = useSelector(selectStart)
-    const user = useSelector(selectUser)
+    const [start, setStart] = useState(0)
     var arrView = []
     const view = []
 
@@ -83,15 +84,11 @@ export default function App({ navigation, route }) {
 
     useEffect(() => {
         if (isFocused) {
-            // setStart(route.params?.start)
+            setStart(route.params?.start)
             getAPI()
             // console.log("start: " + start);
         }
     }, [isFocused])
-
-    // useEffect(() => {
-    //     getAPI()
-    // }, [])
 
 
     function countCourseByFolderID(folderID) {
@@ -148,7 +145,6 @@ export default function App({ navigation, route }) {
 
     arrCourse.forEach(v => arrView.push(v))
 
-    // function locThuVien(){
     if (arrView.length > 0) {
         let tempArr = arrView.splice(0, 1)[0]
         let isCheck = true
@@ -255,12 +251,6 @@ export default function App({ navigation, route }) {
         }
 
     }
-    // }
-
-    // useEffect(() => {
-    //     locThuVien()
-    // }, [arrView])
-    // console.log(arrView);
 
     function HocPhanTab() {
         return (
@@ -387,7 +377,8 @@ export default function App({ navigation, route }) {
                 </TouchableOpacity>
             </View>
             <Tab.Navigator style={{ flex: 15 }}
-                initialRouteName={tabScreen[start]}
+                // initialRouteName={tabScreen[start]}
+                initialRouteName={useSelector(selectStart)}
                 tabBarOptions={{
                     scrollEnabled: true,
                     activeTintColor: "white",

@@ -7,7 +7,8 @@ import { selectUser, setStart } from '../../redux/userSlice';
 
 
 export default function App({ navigation, route }) {
-    const BASE_URL = 'http://localhost:3000'
+    // const BASE_URL = 'http://localhost:3000'
+    const BASE_URL = 'https://pwqz9y-8080.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
@@ -25,7 +26,7 @@ export default function App({ navigation, route }) {
 
 
     const user = useSelector(selectUser);
-    console.log(user);
+    // console.log(user);
 
     const [search, setSearch] = useState('')
     const [arrCourse, setCourse] = useState([])

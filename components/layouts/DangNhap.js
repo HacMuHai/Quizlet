@@ -10,11 +10,12 @@ export default function DangNhap({ navigation, route }) {
 
     // useState cua email va mat khau
     const [email, setEmail] = useState('hiep@gmail.com');
-    const [password, setPassword] = useState('12345678');
+    const [password, setPassword] = useState('123456');
 
 
     // Lay api
     const BASE_URL = 'https://pwqz9y-8080.csb.app/users'
+    // const BASE_URL = 'http://localhost:3000/users'
 
     const [data, setData] = useState([])
 

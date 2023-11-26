@@ -50,6 +50,7 @@ export default function CaiDat({ navigation, route }) {
                             style={{ height: 25 }}
                             placeholder={global.emailOfUser}
                             placeholderTextColor={'#BEC9CD'}
+                            editable={false}
                         />
                     </View>
                     <Pressable style={{ width: '13%', marginLeft: 0 }}>
@@ -67,6 +68,7 @@ export default function CaiDat({ navigation, route }) {
                             style={{ height: 25 }}
                             placeholder={global.nameOfUser}
                             placeholderTextColor={'#BEC9CD'}
+                            editable={false}
                         />
                     </View>
                     <Pressable style={{ width: '13%', marginLeft: 0 }}>

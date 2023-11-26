@@ -2,13 +2,16 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable, 
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { format } from 'date-fns';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userSlice';
 
 
 
 export default function HoSo({ navigation, route }) {
 
-    const NAME_OF_USER = "HHiep32" // Tên của user đăng nhập
-    const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0); // Chữ cái đầu của tên user đăng nhập
+    const user = useSelector(selectUser)
+    const NAME_OF_USER = user.name// Tên của user đăng nhập
+    const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0).toUpperCase(); // Chữ cái đầu của tên user đăng nhập
     const DATE = format(new Date(), 'dd-MM-yyyy')
 
 

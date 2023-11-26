@@ -18,27 +18,7 @@ import { store } from './redux/store';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const renderHeaderRightOfHoSo = (navigation) => (
-    <Pressable
-      onPress={() => {
-        // Xử lý sự kiện khi nút được nhấn
-        // Ví dụ: navigation.navigate('ManHinhNangCap');
-      }}
-      style={{
-        marginRight: 15,
-        width: 120,
-        height: 40,
-        backgroundColor: '#FFCC23',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 19,
-      }}
-    >
-      <Text style={{ width: 100, height: 25, fontSize: 18, fontWeight: '600', textAlign: 'center' }}>
-        Nâng cấp
-      </Text>
-    </Pressable>
-  );
+  
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -70,7 +50,7 @@ export default function App() {
             headerTintColor: 'white'
           }} />
           <Stack.Screen name="bottomTab" component={bottomTab} options={{ headerShown: false }} />
-          <Stack.Screen name="HoSo" component={HoSo} options={{
+          {/* <Stack.Screen name="HoSo" component={HoSo} options={{
             headerShown: true,
             headerTitle: '',
             headerStyle: {
@@ -78,7 +58,7 @@ export default function App() {
             },
             headerTintColor: 'white',
             headerRight: () => renderHeaderRightOfHoSo(navigation),
-          }} />
+          }} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
