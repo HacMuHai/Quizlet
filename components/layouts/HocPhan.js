@@ -82,7 +82,6 @@ export default function HocPhan({ route }) {
 
     useEffect(() => {
         fetchData();
-        console.log(allData);
     }, []);
 
     const renderItemOfVocalbulary = ({ item, index }) => {

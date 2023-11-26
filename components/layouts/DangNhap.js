@@ -1,23 +1,83 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable, ScrollView } from 'react-native';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import React, { useState, useEffect } from 'react';
-import { setUser } from '../../redux/userSlice';
-import { useDispatch } from 'react-redux';
+import { selectUser, setUser } from '../../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { da } from 'date-fns/locale';
 
 
 export default function DangNhap({ navigation, route }) {
-    const dispatch = useDispatch();
 
+    
     // useState cua email va mat khau
     const [email, setEmail] = useState('hiep@gmail.com');
-    const [password, setPassword] = useState('123456');
+    const [password, setPassword] = useState('12345678');
 
-
+    // console.log(useSelector(selectUser));
+    const dispatch = useDispatch();
+    const isFocused = useIsFocused()
     // Lay api
     const BASE_URL = 'https://pwqz9y-8080.csb.app/users'
     // const BASE_URL = 'http://localhost:3000/users'
 
     const [data, setData] = useState([])
+
+    
+    function checkUser() {
+        fetch('http://localhost:3000/user')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data[0]);
+                let user=data[0]
+                // Nếu dữ liệu không rỗng, xử lý ở đây
+                if (user !== null && user !== undefined && user.id != null) {
+                    global.emailOfUser = user.email;
+                    global.nameOfUser = user.name;
+                    dispatch(setUser(user))
+                    navigation.navigate('bottomTab');
+                } else {
+                    // Nếu dữ liệu rỗng, xử lý ở đây
+                    console.log('Dữ liệu không tồn tại');
+                }
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra:', error);
+            });
+    }
+
+
+    useEffect(() => {
+        if (isFocused) {
+            checkUser()
+        }
+    }, [isFocused])
+
+    const createUser = async (userData) => {
+        try {
+          const response = await fetch(`http://localhost:3000/user`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const createdUser = await response.json();
+          console.log(createdUser)
+      
+        } catch (error) {
+          console.error('Có lỗi xảy ra:', error);
+        }
+      };
 
     // config alert
     const toastConfig = {
@@ -75,12 +135,13 @@ export default function DangNhap({ navigation, route }) {
                 setData(json);
 
                 const isSuccess = json.find(item => item.email === email && item.password === password);
-
+                
                 if (isSuccess) {
                     // Xử lí cho trang cài đặt
                     global.emailOfUser = email;
                     global.nameOfUser = isSuccess.name;
                     dispatch(setUser(isSuccess))
+                    createUser(isSuccess)
                     navigation.navigate('bottomTab');
                 } else {
                     Toast.show({
