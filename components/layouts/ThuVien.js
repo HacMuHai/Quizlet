@@ -40,45 +40,50 @@ export default function App({ navigation, route }) {
 
     const isFocused = useIsFocused()
 
-    function getAPI() {
-        var folders = []
-        var classes = []
-        fetch(`${BASE_URL}/folders?userID=${user.id}`)
-            .then(reponse => reponse.json())
-            .then(data => {
-                console.log('1 folders', data)
-                folders = data
-                setFolder(data)
+    // get api moi
+    async function getAPI() {
+        try {
+            const [foldersResponse, classesResponse, coursesResponse] = await Promise.all([
+                fetch(`${BASE_URL}/folders?userID=${user.id}`),
+                fetch(`${BASE_URL}/classes`),
+                fetch(`${BASE_URL}/courses?_sort=lastOpened&_order=desc`)
+            ]);
+    
+            const folders = await foldersResponse.json();
+            let classes = await classesResponse.json();
+            let courses = await coursesResponse.json();
+            
+            classes  = classes.filter(v => {
+                return v.members.includes(user.id) || v.userID === user.id
             })
 
-        fetch(`${BASE_URL}/classes`)
-            .then(reponse => reponse.json())
-            .then(data => {
-                console.log('1 classes', data)
 
-                classes = data.filter(v => {
-                    return v.members.includes(user.id) || v.userID === user.id
-                })
-                setClass(classes)
-            })
+            // Xử lý courses
+            courses = courses.map(item => {
+                item.lastOpened = new Date(item.lastOpened);
+                return item;
+            });
+    
+            // Lọc courses
+            const filteredCourses = courses.filter(v => {
+                return v.userID === user.id ||
+                    (v.folderID && folders.map(vF => vF.id).includes(v.folderID)) ||
+                    (v.classID && classes.map(vC => vC.id).includes(v.classID));
+            });
+    
+    
+            // Xử lý dữ liệu ở đây
+            console.log('Folders:', folders);
+            console.log('Classes:', classes);
+            console.log('Courses:', filteredCourses);
 
-        fetch(`${BASE_URL}/courses?_sort=lastOpened&_order=desc`)
-            .then(reponse => reponse.json())
-            .then(data => {
-                //json Date -> js Date
-                data.forEach(item => {
-                    item.lastOpened = new Date(item.lastOpened);
-                });
-
-                let arr = data.filter(v => {
-                    return v.userID === user.id ||
-                        folders.map(vF => vF.id).includes(v.folderID) ||
-                        classes.map(vC => vC.id).includes(v.classID)
-                })
-                console.log('1 course', arr);
-                setCourse(arr)
-            })
-
+            setFolder(folders);
+            setClass(classes);
+            setCourse(filteredCourses);
+    
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
 
 
