@@ -2,6 +2,8 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userSlice';
 
 
 export default function App({ navigation, route }) {
@@ -89,6 +91,9 @@ export default function App({ navigation, route }) {
             getAPI()
         }
     }, [isFocused])
+
+    const u = useSelector(selectUser);
+    console.log(u);
 
     return (
         <View style={[{ flex: 1, backgroundColor: '#0A082D' }]}>
