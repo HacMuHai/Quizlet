@@ -84,7 +84,7 @@ export default function App({ navigation, route }) {
 
     useEffect(() => {
         if (isFocused) {
-            setStart(route.params?.start)
+            // setStart(route.params?.start)
             getAPI()
             // console.log("start: " + start);
         }

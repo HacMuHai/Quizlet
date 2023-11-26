@@ -1,18 +1,46 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Switch, Pressable, ScrollView } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userSlice';
 
 
 
 
 export default function CaiDat({ navigation, route }) {
 
+
     // handle switch
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const [isEnabled1, setIsEnabled1] = useState(false);
     const toggleSwitch1 = () => setIsEnabled1(previousState => !previousState);
+    const BASE_URL = 'http://localhost:3000'
+    const user = useSelector(selectUser)
 
+    const logout = async () => {
+        try {
+          const response = await fetch(`${BASE_URL}/user/${user.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          const deletedData = await response.json();
+          console.log(deletedData);
+      
+          // Thực hiện các xử lý sau khi đăng xuất thành công (nếu cần)
+      
+        } catch (error) {
+          console.error('Có lỗi xảy ra:', error);
+        }
+      };
+      
     return (
         <ScrollView style={styles.container}>
             <View style={{ width: '100%', height: 97, flexDirection: 'row', backgroundColor: '#2F3857', justifyContent: 'center', alignItems: 'center' }}>
@@ -184,7 +212,8 @@ export default function CaiDat({ navigation, route }) {
                     <Pressable
                         style={{ width: '85%', justifyContent: 'center', marginTop: 10, marginLeft: 10 }}
                         onPress={() => {
-                            // Cập nhật lại user đăng nhập.
+                            // Cập nhật lại user đăng nhập.                  
+                            logout()
                             global.emailOfUser = '';
                             global.nameOfUser = '';
                             navigation.navigate('DangNhap');

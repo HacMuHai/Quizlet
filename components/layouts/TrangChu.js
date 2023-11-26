@@ -56,20 +56,21 @@ export default function App({ navigation, route }) {
                 setClass(classes)
             })
 
-        fetch(`${BASE_URL}/courses?_sort=lastOpened&_order=desc`)
+            fetch(`${BASE_URL}/courses?_sort=lastOpened&_order=desc`)
             .then(reponse => reponse.json())
             .then(data => {
-
                 //json Date -> js Date
                 data.forEach(item => {
                     item.lastOpened = new Date(item.lastOpened);
                 });
 
-                setCourse(data.filter(v => {
+                let arr = data.filter(v => {
                     return v.userID === user.id ||
                         folders.map(vF => vF.id).includes(v.folderID) ||
                         classes.map(vC => vC.id).includes(v.classID)
-                }))
+                })
+                console.log('1 course', arr);
+                setCourse(arr)
             })
 
     }

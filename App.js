@@ -10,15 +10,15 @@ import HocPhan from './components/layouts/HocPhan';
 // import LopHoc from './components/layouts/LopHoc';
 import bottomTab from './components/layouts/bottomTab';
 import HoSo from './components/layouts/HoSo';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { store } from './redux/store';
+import { selectUser } from './redux/userSlice';
 
 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
   return (
     <Provider store={store}>
       <NavigationContainer>
