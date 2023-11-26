@@ -1,4 +1,5 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
 
@@ -9,6 +10,7 @@ export default function App({ navigation, route }) {
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
     const heightView2 = windowDimensions.height - heightView1 - heightBottomTab
+    const isFocused = useIsFocused()
     const user = {
         "id": 1,
         "name": "Nguyen Van A",
@@ -77,12 +79,16 @@ export default function App({ navigation, route }) {
         }, 0)
     }
 
+    // useEffect(() => {
+    //     getAPI()
+    //     console.log(windowDimensions.height)
+    // }, [])
+
     useEffect(() => {
-        getAPI()
-        console.log(windowDimensions.height)
-    }, [])
-
-
+        if (isFocused) {
+            getAPI()
+        }
+    }, [isFocused])
 
     return (
         <View style={[{ flex: 1, backgroundColor: '#0A082D' }]}>
@@ -156,7 +162,7 @@ export default function App({ navigation, route }) {
                                                 gap: 15, height: 145, width: 325, borderWidth: 5, borderRadius: 25, borderColor: '#555E7A',
                                                 justifyContent: 'space-between', marginRight: 20, padding: 10, paddingLeft: 20
                                             }}
-                                            onPress={() => navigation.navigate('HocPhan')}
+                                            onPress={() => navigation.navigate('HocPhan',{courseId:item.id})}
                                         >
                                             <View style={{ gap: 10 }}>
                                                 <Text style={{ fontSize: 18, fontWeight: 700, color: 'white' }}>{item.title}</Text>

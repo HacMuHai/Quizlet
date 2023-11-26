@@ -18,7 +18,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='DangNhap'>
+        <Stack.Navigator initialRouteName='bottomTab'>
           <Stack.Screen name="DangNhap" component={DangNhap} options={{ headerShown: false }} />
           <Stack.Screen name="DangKy" component={DangKy} options={{
             headerShown: true,
@@ -29,7 +29,7 @@ export default function App() {
             headerTintColor:'white'
           }} />
           <Stack.Screen name="CaiDat" component={CaiDat} options={{ headerShown: false }} />
-          <Stack.Screen name="HocPhan" component={HocPhan} options={{ headerShown: false }} />
+          <Stack.Screen name="HocPhan" component={HocPhan} />
           {/* <Stack.Screen name="LopHoc" component={LopHoc} options={{ headerShown: false }} /> */}
           <Stack.Screen name="bottomTab" component={bottomTab} options={{ headerShown: false }} />
         </Stack.Navigator>

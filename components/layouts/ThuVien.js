@@ -29,18 +29,11 @@ export default function App({ navigation, route }) {
     const [arrClass, setClass] = useState([])
     const [arrFolder, setFolder] = useState([])
     const [check, setCheck] = useState(false)
-    const [start, setStart] = useState(route.params?.start || 0)
+    const [start, setStart] = useState(0)
     var arrView = []
     const view = []
 
     const isFocused = useIsFocused()
-
-    useEffect(() => {
-        if (isFocused) {
-            setStart(route.params?.start)
-            console.log("start: " + start);
-        }
-    }, [isFocused])
 
     function getAPI() {
         var folders = []
@@ -83,13 +76,18 @@ export default function App({ navigation, route }) {
 
     }
 
+
     useEffect(() => {
-        // if(!check){
-        getAPI()
-        // locThuVien()
-        // }
-        // setCheck(true)
-    }, [])
+        if (isFocused) {
+            setStart(route.params?.start)
+            getAPI()
+            // console.log("start: " + start);
+        }
+    }, [isFocused])
+
+    // useEffect(() => {
+    //     getAPI()
+    // }, [])
 
 
     function countCourseByFolderID(folderID) {
@@ -118,7 +116,7 @@ export default function App({ navigation, route }) {
                     gap: 15, flexDirection: 'row', height: 135, borderWidth: 3, borderRadius: 25, borderColor: '#555E7A',
                     justifyContent: 'space-between', alignItems: 'center', padding: 10, paddingLeft: 20, marginVertical: 10, marginHorizontal: 10
                 }}
-                onPress={() => navigation.push('HocPhan')}
+                onPress={() => navigation.push('HocPhan', { courseId: item.id })}
             >
                 <View style={{ justifyContent: 'space-between', height: '100%', }}>
                     <View style={{ gap: 10 }}>
@@ -149,18 +147,23 @@ export default function App({ navigation, route }) {
     // function locThuVien(){
     if (arrView.length > 0) {
         let tempArr = arrView.splice(0, 1)[0]
+        let isCheck = true
         // console.log(tempArr);
 
         //Các học phần học hôm này
         let toDay = new Date();
+        toDay.setHours(0, 0, 0, 0)
         if (tempArr.lastOpened > toDay) {
             view.push(renderTitleCourse("Hôm nay"))
             do {
                 view.push(renderCourseView(tempArr))
 
-                if (arrView.length <= 0)
+                if (arrView.length <= 0){
+                    isCheck = false
                     break
-                tempArr = arrView.splice(0, 1)[0]
+                }
+                else
+                    tempArr = arrView.splice(0, 1)[0]
                 // console.log(tempArr);
             }
             while (tempArr.lastOpened > toDay)
@@ -172,15 +175,17 @@ export default function App({ navigation, route }) {
         yesterday.setHours(0, 0, 0, 0)
         // view.push(renderTitleCourse(yesterday + "2"))
 
-        if (tempArr.lastOpened > yesterday && arrView.length > 0) {
+        if (tempArr.lastOpened > yesterday && isCheck) {
             view.push(renderTitleCourse("Hôm qua"))
             do {
                 view.push(renderCourseView(tempArr))
 
-                if (arrView.length <= 0)
+                if (arrView.length <= 0){
+                    isCheck = false
                     break
-
-                tempArr = arrView.splice(0, 1)[0]
+                }
+                else
+                    tempArr = arrView.splice(0, 1)[0]
                 // console.log(tempArr);
             }
             while (tempArr.lastOpened > yesterday)
@@ -191,15 +196,17 @@ export default function App({ navigation, route }) {
         let thisWeek = new Date();
         thisWeek.setDate(toDay.getDate() - toDay.getDay())
         thisWeek.setHours(0, 0, 0, 0)
-        if (tempArr.lastOpened > thisWeek) {
+        if (tempArr.lastOpened > thisWeek && isCheck) {
             view.push(renderTitleCourse("Tuần này"))
             do {
                 view.push(renderCourseView(tempArr))
 
-                if (arrView.length <= 0)
+                if (arrView.length <= 0){
+                    isCheck = false
                     break
-
-                tempArr = arrView.splice(0, 1)[0]
+                }
+                else
+                    tempArr = arrView.splice(0, 1)[0]
                 // console.log(tempArr);
             }
             while (tempArr.lastOpened > thisWeek)
@@ -209,15 +216,15 @@ export default function App({ navigation, route }) {
         let lastWeek = new Date();
         lastWeek.setDate(toDay.getDate() - toDay.getDay() - 7)
         lastWeek.setHours(0, 0, 0, 0)
-        if (tempArr.lastOpened > lastWeek) {
+        if (tempArr.lastOpened > lastWeek && isCheck) {
             view.push(renderTitleCourse("Tuần trước"))
             do {
                 view.push(renderCourseView(tempArr))
 
                 if (arrView.length <= 0)
-                    break
-
-                tempArr = arrView.splice(0, 1)[0]
+                    tempArr.lastOpened = new Date()
+                else
+                    tempArr = arrView.splice(0, 1)[0]
                 // console.log("Tuần trước", tempArr);
             }
             while (tempArr.lastOpened > lastWeek)
@@ -235,7 +242,7 @@ export default function App({ navigation, route }) {
                 view.push(renderCourseView(tempArr))
 
                 if (arrView.length <= 0)
-                    tempArr.lastOpened=new Date()
+                    tempArr.lastOpened = new Date()
                 else
                     tempArr = arrView.splice(0, 1)[0]
                 // console.log(tempArr);
