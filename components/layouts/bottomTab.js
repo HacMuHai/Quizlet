@@ -5,6 +5,7 @@ import TrangChu from './TrangChu';
 import LopHoc from './LopHoc';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector } from 'react-redux';
 
 export default function App({ navigation, route }) {
 
@@ -23,7 +24,7 @@ export default function App({ navigation, route }) {
     //       </Stack.Navigator>
     //     );
     //   };
-
+   
     return (
         <BottomTab.Navigator
             initialRouteName={screens[start]}
