@@ -9,16 +9,16 @@ import { Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 const SCREEN_WIDTH = 300;
 const DOT_PAGE_SIZE = 7;
 
-export default function HocPhan() {
+export default function HocPhan({route}) {
 
 
     // fetch api
 
-    const COURSE_ID = 1; // Id lấy từ route
+    const COURSE_ID = route.params.courseId || 1; // Id lấy từ route
 
-    const BASE_URL = `https://pwqz9y-8080.csb.app/courses?id=${COURSE_ID}`
+    const BASE_URL = `http://localhost:3000/courses?id=${COURSE_ID}`
 
-    const BASE_URL_UPDATE = `https://pwqz9y-8080.csb.app/courses/${COURSE_ID}`
+    const BASE_URL_UPDATE = `http://localhost:3000/courses/${COURSE_ID}`
 
 
     const [data, setData] = useState([]); // data của vocabularies
@@ -57,7 +57,7 @@ export default function HocPhan() {
                     // Bạn có thể thêm các header cần thiết khác tại đây
                 },
                 body: JSON.stringify({
-                    lastOpened: new Date().toISOString(),
+                    lastOpened: new Date(),
                 }),
             });
             // Xử lý phản hồi từ API nếu cần

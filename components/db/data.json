@@ -29,14 +29,18 @@
       "name": "Class A",
       "desc": "Description of Class A",
       "userID": 1,
-      "members": [2]
+      "members": [
+        2
+      ]
     },
     {
       "id": 2,
       "name": "Class B",
       "desc": "Description of Class B",
       "userID": 2,
-      "members": [1]
+      "members": [
+        1
+      ]
     },
     {
       "id": 3,
@@ -80,7 +84,7 @@
       "classID": 1,
       "title": "Học phần 1",
       "desc": "Mô tả học phần 1",
-      "lastOpened": "2023-11-24T08:50:00Z"
+      "lastOpened": "2023-11-26T01:25:57.458Z"
     },
     {
       "id": 2,
@@ -103,7 +107,7 @@
       "classID": 2,
       "title": "Học phần 2",
       "desc": "Mô tả học phần 2",
-      "lastOpened": "2023-11-24T00:00:00Z"
+      "lastOpened": "2023-11-26T01:19:17.260Z"
     },
     {
       "id": 3,
@@ -130,7 +134,7 @@
       "classID": 1,
       "title": "Học phần 3",
       "desc": "Mô tả học phần 3",
-      "lastOpened": "2022-11-24T01:50:00Z"
+      "lastOpened": "2023-11-26T01:18:56.638Z"
     },
     {
       "id": 4,
@@ -157,7 +161,7 @@
       "classID": 1,
       "title": "Học phần 4",
       "desc": "Mô tả học phần 4",
-      "lastOpened": "2023-05-24T01:50:00Z"
+      "lastOpened": "2023-11-26T01:23:53.193Z"
     }
-  ]  
+  ]
 }
