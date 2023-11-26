@@ -10,7 +10,7 @@ export default function App({ navigation, route }) {
         <View style={{ flex: 1 }}>
 
             <View style={{}}>
-<Text>ssss</Text>
+                <Text>ssss</Text>
             </View>
 
             <View style={{}}>

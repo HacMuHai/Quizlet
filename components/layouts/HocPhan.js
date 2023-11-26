@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
 import { useState, useRef, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userSlice';
 // import { date } from 'date-fns/locale';
 
 
@@ -11,18 +13,21 @@ const DOT_PAGE_SIZE = 7;
 
 export default function HocPhan({ route }) {
 
+    const user = useSelector(selectUser)
+    const NAME_OF_USER = user.name// Tên của user đăng nhập
+    const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0).toUpperCase(); 
 
     // fetch api
 
     const COURSE_ID = route.params?.courseId ? route.params.courseId : 1; // Id lấy từ route
 
-    const BASE_URL = `http://localhost:3000/courses?id=${COURSE_ID}`
+    const BASE_URL = `https://pwqz9y-8080.csb.app/courses?id=${COURSE_ID}`
 
-    const BASE_URL_UPDATE = `http://localhost:3000/courses/${COURSE_ID}`
+    const BASE_URL_UPDATE = `https://pwqz9y-8080.csb.app/courses/${COURSE_ID}`
 
 
     const [data, setData] = useState([]); // data của vocabularies
-    const [allData, setAllData] = useState([]);
+    const [allData, setAllData] = useState({});
 
 
     const fetchData = async () => {
@@ -30,8 +35,8 @@ export default function HocPhan({ route }) {
         fetch(BASE_URL)
             .then(response => response.json())
             .then((json) => {
+                setAllData(json[0])
                 setData(json[0].vocabularies)
-                setAllData(json)
             })
             .catch(error => console.error(error))
 
@@ -75,6 +80,7 @@ export default function HocPhan({ route }) {
 
     useEffect(() => {
         fetchData();
+        console.log(allData);
     }, []);
 
 
@@ -176,19 +182,19 @@ export default function HocPhan({ route }) {
             </View>
             <View style={{ width: '90%', height: 36, marginLeft: '5%', marginTop: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={{ fontSize: 32, fontWeight: '600', color: 'white' }}>
-                    Vocabulary 4
+                    {allData.title}
                 </Text>
                 <MaterialCommunityIcons name="download-circle-outline" size={38} color="white" />
             </View>
             <View style={{ width: '90%', height: 48, marginLeft: '5%', marginTop: 20, flexDirection: 'row' }}>
-                <View style={{ width: '40%', height: '100%', flexDirection: 'row', borderRightWidth: 1, borderColor: 'white' }}>
+                <View style={{ width: '50%', height: '100%', flexDirection: 'row', borderRightWidth: 1, borderColor: 'white' }}>
                     <View style={{ width: 43, height: 41, justifyContent: 'center', alignItems: 'center', backgroundColor: '#AA46BC', borderWidth: 1, borderRadius: 100, borderColor: '#AA46BC' }}>
-                        <Text style={{ fontSize: 30, fontWeight: '900', color: 'white' }}>H</Text>
+                        <Text style={{ fontSize: 30, fontWeight: '700', color: 'white' }}>{FIRST_CHAR_OF_NAME}</Text>
                     </View>
-                    <Text style={{ marginLeft: 15, fontSize: 25, fontWeight: '600', color: 'white' }}>hhiep</Text>
+                    <Text style={{ marginLeft: 15, fontSize: 25, fontWeight: '600', color: 'white' }}>{NAME_OF_USER}</Text>
                 </View>
                 <View style={{ width: '60%', height: '100%', flexDirection: 'row' }}>
-                    <Text style={{ marginLeft: 20, fontSize: 25, fontWeight: '600', color: 'white' }}>33 thuật ngữ</Text>
+                    <Text style={{ marginLeft: 20, fontSize: 25, fontWeight: '600', color: 'white' }}>{data.length} thuật ngữ</Text>
                 </View>
             </View>
             <View style={{ width: '90%', height: 80, marginLeft: '5%', marginTop: 10, flexDirection: 'row', backgroundColor: '#2F3856', borderWidth: 1, borderRadius: 10, borderColor: '#2F3856' }}>

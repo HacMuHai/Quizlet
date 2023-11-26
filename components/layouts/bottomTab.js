@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
 import ThuVien from './ThuVien';
 import TrangChu from './TrangChu';
+import HoSo from './HoSo';
 import LopHoc from './LopHoc';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -24,6 +25,28 @@ export default function App({ navigation, route }) {
     //       </Stack.Navigator>
     //     );
     //   };
+
+    const renderHeaderRightOfHoSo = (navigation) => (
+        <Pressable
+          onPress={() => {
+            // Xử lý sự kiện khi nút được nhấn
+            // Ví dụ: navigation.navigate('ManHinhNangCap');
+          }}
+          style={{
+            marginRight: 15,
+            width: 120,
+            height: 40,
+            backgroundColor: '#FFCC23',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 19,
+          }}
+        >
+          <Text style={{ width: 100, height: 25, fontSize: 18, fontWeight: '600', textAlign: 'center' }}>
+            Nâng cấp
+          </Text>
+        </Pressable>
+      );
    
     return (
         <BottomTab.Navigator
@@ -83,9 +106,15 @@ export default function App({ navigation, route }) {
 
             <BottomTab.Screen
                 name={screens[4]}
-                component={TrangChu}
+                component={HoSo}
                 options={{
-                    headerShown: false,
+                    headerShown: true,
+                    headerTitle: '',
+                    headerStyle: {
+                      backgroundColor: '#0A082D'
+                    },
+                    headerTintColor: 'white',
+                    headerRight: () => renderHeaderRightOfHoSo(navigation), 
                     title: 'Hồ sơ',
                     tabBarIcon: ({ color, size }) => (
                         <View><Image style={{ height: sizeIcon, width: sizeIcon, resizeMode: 'contain', tintColor: color }} source={require('../imgs/face.png')} /></View>
