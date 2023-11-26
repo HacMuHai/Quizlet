@@ -9,8 +9,8 @@ export default function DangNhap({ navigation, route }) {
     const dispatch = useDispatch();
 
     // useState cua email va mat khau
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('hiep@gmail.com');
+    const [password, setPassword] = useState('12345678');
 
 
     // Lay api

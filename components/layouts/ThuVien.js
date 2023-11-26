@@ -4,6 +4,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectStart, selectUser } from '../../redux/userSlice';
 
 
 
@@ -15,21 +17,23 @@ export default function App({ navigation, route }) {
     const heightView1 = 125
     const heightView2 = windowDimensions.height - heightView1 - heightBottomTab
 
-    const user = {
-        "id": 1,
-        "name": "Nguyen Van A",
-        "email": "vana@example.com",
-        "password": "hashed_password",
-        "dob": "1990-01-01",
-        "isGv": false
-    }
+    // const user = {
+    //     "id": 1,
+    //     "name": "Nguyen Van A",
+    //     "email": "vana@example.com",
+    //     "password": "hashed_password",
+    //     "dob": "1990-01-01",
+    //     "isGv": false
+    // }
 
     const [search, setSearch] = useState('')
     const [arrCourse, setCourse] = useState([])
     const [arrClass, setClass] = useState([])
     const [arrFolder, setFolder] = useState([])
     const [check, setCheck] = useState(false)
-    const [start, setStart] = useState(0)
+    // const [start, setStart] = useState(0)
+    const start = useSelector(selectStart)
+    const user = useSelector(selectUser)
     var arrView = []
     const view = []
 
@@ -79,7 +83,7 @@ export default function App({ navigation, route }) {
 
     useEffect(() => {
         if (isFocused) {
-            setStart(route.params?.start)
+            // setStart(route.params?.start)
             getAPI()
             // console.log("start: " + start);
         }
