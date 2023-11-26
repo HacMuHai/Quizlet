@@ -1,15 +1,16 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable, ScrollView } from 'react-native';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import React, { useState, useEffect } from 'react';
+import { setUser } from '../../redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 export default function DangNhap({ navigation, route }) {
-
+    const dispatch = useDispatch();
 
     // useState cua email va mat khau
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
 
 
     // Lay api
@@ -78,6 +79,7 @@ export default function DangNhap({ navigation, route }) {
                     // Xử lí cho trang cài đặt
                     global.emailOfUser = email;
                     global.nameOfUser = isSuccess.name;
+                    dispatch(setUser(isSuccess))
                     navigation.navigate('bottomTab');
                 } else {
                     Toast.show({
