@@ -4,25 +4,33 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectStart, selectUser } from '../../redux/userSlice';
 
 
 
 export default function App({ navigation, route }) {
 
+<<<<<<< HEAD
+=======
+    // const BASE_URL = 'http://localhost:3000'
+>>>>>>> 4c9a70aa9df65348a7e6d0a7311056a62629fd7c
     const BASE_URL = 'https://pwqz9y-8080.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
     const heightView2 = windowDimensions.height - heightView1 - heightBottomTab
 
-    const user = {
-        "id": 1,
-        "name": "Nguyen Van A",
-        "email": "vana@example.com",
-        "password": "hashed_password",
-        "dob": "1990-01-01",
-        "isGv": false
-    }
+    
+    const user = useSelector(selectUser)
+    // const user = {
+    //     "id": 1,
+    //     "name": "Nguyen Van A",
+    //     "email": "vana@example.com",
+    //     "password": "hashed_password",
+    //     "dob": "1990-01-01",
+    //     "isGv": false
+    // }
 
     const [search, setSearch] = useState('')
     const [arrCourse, setCourse] = useState([])
@@ -85,10 +93,6 @@ export default function App({ navigation, route }) {
         }
     }, [isFocused])
 
-    // useEffect(() => {
-    //     getAPI()
-    // }, [])
-
 
     function countCourseByFolderID(folderID) {
         return arrCourse.reduce((pre, cur) => {
@@ -144,7 +148,6 @@ export default function App({ navigation, route }) {
 
     arrCourse.forEach(v => arrView.push(v))
 
-    // function locThuVien(){
     if (arrView.length > 0) {
         let tempArr = arrView.splice(0, 1)[0]
         let isCheck = true
@@ -251,12 +254,6 @@ export default function App({ navigation, route }) {
         }
 
     }
-    // }
-
-    // useEffect(() => {
-    //     locThuVien()
-    // }, [arrView])
-    // console.log(arrView);
 
     function HocPhanTab() {
         return (
@@ -383,7 +380,8 @@ export default function App({ navigation, route }) {
                 </TouchableOpacity>
             </View>
             <Tab.Navigator style={{ flex: 15 }}
-                initialRouteName={tabScreen[start]}
+                // initialRouteName={tabScreen[start]}
+                initialRouteName={useSelector(selectStart)}
                 tabBarOptions={{
                     scrollEnabled: true,
                     activeTintColor: "white",

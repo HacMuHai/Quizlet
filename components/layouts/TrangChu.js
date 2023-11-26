@@ -2,26 +2,34 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, useWindowDimensions, FlatList, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser, setStart } from '../../redux/userSlice';
 
 
 export default function App({ navigation, route }) {
+<<<<<<< HEAD
+=======
+    // const BASE_URL = 'http://localhost:3000'
+>>>>>>> 4c9a70aa9df65348a7e6d0a7311056a62629fd7c
     const BASE_URL = 'https://pwqz9y-8080.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
     const heightView2 = windowDimensions.height - heightView1 - heightBottomTab
     const isFocused = useIsFocused()
-    const user = {
-        "id": 1,
-        "name": "Nguyen Van A",
-        "email": "vana@example.com",
-        "password": "hashed_password",
-        "dob": "1990-01-01",
-        "isGv": false
-    }
+    const dispatch = useDispatch()
+    // const user = {
+    //     "id": 1,
+    //     "name": "Nguyen Van A",
+    //     "email": "vana@example.com",
+    //     "password": "hashed_password",
+    //     "dob": "1990-01-01",
+    //     "isGv": false
+    // }
 
+
+    const user = useSelector(selectUser);
+    // console.log(user);
 
     const [search, setSearch] = useState('')
     const [arrCourse, setCourse] = useState([])
@@ -92,9 +100,6 @@ export default function App({ navigation, route }) {
         }
     }, [isFocused])
 
-    const u = useSelector(selectUser);
-    console.log(u);
-
     return (
         <View style={[{ flex: 1, backgroundColor: '#0A082D' }]}>
             {/* view 1: Header */}
@@ -148,7 +153,11 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Các học phần</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
-                                onPress={() => navigation.navigate('ThuVien', { start: 0 })}
+                                // onPress={() => navigation.navigate('ThuVien', { start: 0 })}
+                                onPress={() => {
+                                    navigation.navigate('ThuVien')
+                                    dispatch(setStart(0))
+                                }}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
                             </TouchableOpacity>
@@ -205,7 +214,11 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Thư mục</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
-                                onPress={() => navigation.navigate('ThuVien', { start: 2 })}
+                                // onPress={() => navigation.navigate('ThuVien', { start: 2 })}
+                                onPress={() => {
+                                    navigation.navigate('ThuVien')
+                                    dispatch(setStart(2))
+                                }}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
                             </TouchableOpacity>
@@ -261,8 +274,12 @@ export default function App({ navigation, route }) {
                             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF' }}>Lớp học</Text>
                             <TouchableOpacity
                                 style={{ width: 110, height: 38, justifyContent: 'center', alignItems: 'center' }}
+                                // onPress={() => {
+                                //     navigation.navigate('ThuVien', { start: 1, key: Date.now()})
+                                // }}
                                 onPress={() => {
-                                    navigation.navigate('ThuVien', { start: 1, key: Date.now()})
+                                    navigation.navigate('ThuVien')
+                                    dispatch(setStart(1))
                                 }}
                             >
                                 <Text style={{ fontSize: 18, fontWeight: 700, color: '#302EAC' }}>Xem tất cả</Text>
