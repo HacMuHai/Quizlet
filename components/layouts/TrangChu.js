@@ -7,10 +7,7 @@ import { selectUser, setStart } from '../../redux/userSlice';
 
 
 export default function App({ navigation, route }) {
-<<<<<<< HEAD
-=======
-    // const BASE_URL = 'http://localhost:3000'
->>>>>>> 4c9a70aa9df65348a7e6d0a7311056a62629fd7c
+
     const BASE_URL = 'https://pwqz9y-8080.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
