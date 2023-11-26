@@ -29,7 +29,14 @@ export default function App() {
             headerTintColor:'white'
           }} />
           <Stack.Screen name="CaiDat" component={CaiDat} options={{ headerShown: false }} />
-          <Stack.Screen name="HocPhan" component={HocPhan} />
+          <Stack.Screen name="HocPhan" component={HocPhan} options={{
+            headerShown: true,
+            headerTitle: '',
+            headerStyle: {
+              backgroundColor: '#2F3856'
+            },
+            headerTintColor:'white'
+          }}/>
           {/* <Stack.Screen name="LopHoc" component={LopHoc} options={{ headerShown: false }} /> */}
           <Stack.Screen name="bottomTab" component={bottomTab} options={{ headerShown: false }} />
         </Stack.Navigator>
