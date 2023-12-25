@@ -25,8 +25,8 @@ export default function HocPhan({ route }) {
 
     const BASE_URL_UPDATE = `https://zy8j3c-3000.csb.app/courses/${COURSE_ID}`
 
-    const NAME_OF_USER = "hhiep32";
-    const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0);
+    // const NAME_OF_USER = "hhiep32";
+    // const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0);
 
     const [data, setData] = useState([]); // data của vocabularies
     const [allData, setAllData] = useState({});
