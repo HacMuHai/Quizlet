@@ -12,7 +12,7 @@ import { selectStart, selectUser } from '../../redux/userSlice';
 export default function App({ navigation, route }) {
 
     // const BASE_URL = 'http://localhost:3000'
-    const BASE_URL = 'https://pwqz9y-8080.csb.app'
+    const BASE_URL = 'https://zy8j3c-3000.csb.app'
     const windowDimensions = useWindowDimensions()
     const heightBottomTab = useBottomTabBarHeight() || 0
     const heightView1 = 125
@@ -260,9 +260,9 @@ export default function App({ navigation, route }) {
     function HocPhanTab() {
         return (
             <View style={{ flex: 1, backgroundColor: '#0A082D', paddingHorizontal: 15, paddingTop: 15, gap: 20, justifyContent: 'space-between' }}>
-                <View style={{ height: 35, flex: 1, width: 130, borderWidth: 2, borderColor: 'white', borderRadius: 10 }}>
+                {/* <View style={{ height: 35, flex: 1, width: 130, borderWidth: 2, borderColor: 'white', borderRadius: 10 }}>
 
-                </View>
+                </View> */}
 
                 <View style={{ height: 35, flex: 1, }}>
                     <TextInput

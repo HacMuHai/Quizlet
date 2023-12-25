@@ -18,7 +18,7 @@ const formatDate = (date) => {
 export default function DangKy({ navigation, route }) {
 
     // Lay api
-    const BASE_URL = 'https://pwqz9y-8080.csb.app/users'
+    const BASE_URL = 'https://zy8j3c-3000.csb.app/users'
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [email, setEmail] = useState('');

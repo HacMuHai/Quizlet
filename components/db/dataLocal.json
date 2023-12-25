@@ -4,7 +4,7 @@
       "dob": "13-06-2002",
       "email": "hiep@gmail.com",
       "name": "abiep32",
-      "password": "123456",
+      "password": "12345678",
       "isGV": false,
       "id": 1
     },
@@ -12,7 +12,7 @@
       "dob": "16-10-2002",
       "email": "huuhiep@gmail.com",
       "name": "huuhiep",
-      "password": "123456",
+      "password": "12345678",
       "isGV": true,
       "id": 2
     },
