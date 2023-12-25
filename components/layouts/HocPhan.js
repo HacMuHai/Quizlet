@@ -25,6 +25,8 @@ export default function HocPhan({ route }) {
 
     const BASE_URL_UPDATE = `https://zy8j3c-3000.csb.app/courses/${COURSE_ID}`
 
+    const NAME_OF_USER = "hhiep32";
+    const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0);
 
     const [data, setData] = useState([]); // data của vocabularies
     const [allData, setAllData] = useState({});
@@ -81,7 +83,6 @@ export default function HocPhan({ route }) {
     useEffect(() => {
         fetchData();
     }, []);
-
 
     const renderItemOfVocalbulary = ({ item, index }) => {
         return (
@@ -188,6 +189,7 @@ export default function HocPhan({ route }) {
             <View style={{ width: '90%', height: 48, marginLeft: '5%', marginTop: 20, flexDirection: 'row' }}>
                 <View style={{ width: '50%', height: '100%', flexDirection: 'row', borderRightWidth: 1, borderColor: 'white' }}>
                     <View style={{ width: 43, height: 41, justifyContent: 'center', alignItems: 'center', backgroundColor: '#AA46BC', borderWidth: 1, borderRadius: 100, borderColor: '#AA46BC' }}>
+
                         <Text style={{ fontSize: 30, fontWeight: '700', color: 'white' }}>{FIRST_CHAR_OF_NAME}</Text>
                     </View>
                     <Text style={{ marginLeft: 15, fontSize: 25, fontWeight: '600', color: 'white' }}>{NAME_OF_USER}</Text>
