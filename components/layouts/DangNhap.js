@@ -18,7 +18,7 @@ export default function DangNhap({ navigation, route }) {
     const dispatch = useDispatch();
     const isFocused = useIsFocused()
     // Lay api
-    const BASE_URL = 'https://pwqz9y-8080.csb.app/users'
+    const BASE_URL = 'https://zy8j3c-3000.csb.app/users'
     // const BASE_URL = 'http://localhost:3000/users'
 
     const [data, setData] = useState([])
@@ -133,7 +133,7 @@ export default function DangNhap({ navigation, route }) {
             .then(response => response.json())
             .then(json => {
                 setData(json);
-
+                console.log(json);
                 const isSuccess = json.find(item => item.email === email && item.password === password);
                 
                 if (isSuccess) {

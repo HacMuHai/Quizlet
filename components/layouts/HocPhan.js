@@ -21,9 +21,9 @@ export default function HocPhan({ route }) {
 
     const COURSE_ID = route.params?.courseId ? route.params.courseId : 1; // Id lấy từ route
 
-    const BASE_URL = `https://pwqz9y-8080.csb.app/courses?id=${COURSE_ID}`
+    const BASE_URL = `https://zy8j3c-3000.csb.app/courses?id=${COURSE_ID}`
 
-    const BASE_URL_UPDATE = `https://pwqz9y-8080.csb.app/courses/${COURSE_ID}`
+    const BASE_URL_UPDATE = `https://zy8j3c-3000.csb.app/courses/${COURSE_ID}`
 
     const NAME_OF_USER = "hhiep32";
     const FIRST_CHAR_OF_NAME = NAME_OF_USER.charAt(0);
